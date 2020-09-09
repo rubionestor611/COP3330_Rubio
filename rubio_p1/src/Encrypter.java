@@ -14,7 +14,7 @@ public class Encrypter {
         //turn array of ints into string to return
         return finalizeEncryptedData(numArray);
     }
-    public static int[] initializenumArray(int num){
+    private static int[] initializenumArray(int num){
         //create array w/ enough room for 4 digits
         int[] ret = new int[4];
         //break integer into 4 separate digits making each int in array
@@ -26,19 +26,19 @@ public class Encrypter {
 
         return ret;
     }
-    public static void swap(int[] array, int lo, int hi){
+    private static void swap(int[] array, int lo, int hi){
         //basic int swap but within integer array
         int x = array[lo];
         array[lo] = array[hi];
         array[hi] = x;
     }
-    public static int modify(int a){
+    private static int modify(int a){
         //modifications per instructions
         a += 7;
         a = a % 10;
         return a;
     }
-    public static String finalizeEncryptedData(int[] numArray){
+    private static String finalizeEncryptedData(int[] numArray){
         //turn array into string for return
         String ret = "";
         for(int y = 0; y < 4; y++){
