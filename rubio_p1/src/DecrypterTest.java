@@ -8,5 +8,14 @@ class DecrypterTest {
         Decrypter myDecrypter = new Decrypter();
         assertEquals("1234", myDecrypter.decrypt("0189"));
     }
-
+    @Test
+    void decrypt8888(){
+        Decrypter myDecrypter = new Decrypter();
+        assertEquals("1111", myDecrypter.decrypt("8888"));
+    }
+    @Test
+    void decrypt4568(){
+        Decrypter myDecrypter = new Decrypter();
+        assertEquals("9178", myDecrypter.decrypt("4568"));
+    }
 }
