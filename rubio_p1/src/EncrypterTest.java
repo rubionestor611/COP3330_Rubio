@@ -15,6 +15,7 @@ class EncrypterTest {
         Encrypter myEncrypter = new Encrypter();
         assertEquals("7777", myEncrypter.encrypt("0000"));
     }
+
     @Test
     void encrypt5432(){
         Encrypter myEncrypter = new Encrypter();

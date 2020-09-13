@@ -29,21 +29,27 @@ public class Encrypter {
     private static void swap(int[] array, int lo, int hi){
         //basic int swap but within integer array
         int x = array[lo];
+
         array[lo] = array[hi];
+
         array[hi] = x;
     }
     private static int modify(int a){
         //modifications per instructions
         a += 7;
+
         a = a % 10;
+
         return a;
     }
     private static String arraytoString(int[] numArray){
         //turn array into string for return
         String ret = "";
+
         for(int y = 0; y < numArray.length; y++){
             ret += String.valueOf(numArray[y]);
         }
+
         return ret;
     }
 }

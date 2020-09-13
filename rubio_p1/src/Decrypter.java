@@ -37,10 +37,12 @@ public class Decrypter {
     private static void swap(int[] a, int lo, int hi){
         //simple swap of int values in integer array
         int x = a[lo];
+
         a[lo] = a[hi];
+
         a[hi] = x;
     }
-    public static void printintArray(int[] a){
+    private static void printintArray(int[] a){
         //public method for printing array used to show array was of correct values
         for(int i = 0; i < a.length; i++){
             System.out.print(a[i]);
@@ -50,9 +52,11 @@ public class Decrypter {
         //concatonates the value of int rray to string to form one string result with all integers
         //the array contains
         String ret = "";
+
         for(int i = 0; i < a.length; i++){
             ret += String.valueOf(a[i]);
         }
+
         return ret;
     }
 }

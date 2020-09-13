@@ -18,4 +18,12 @@ class DecrypterTest {
         Decrypter myDecrypter = new Decrypter();
         assertEquals("9178", myDecrypter.decrypt("4568"));
     }
+    @Test
+    void decrypt0721(){
+        Decrypter myDecrypter = new Decrypter();
+        assertEquals("5430", myDecrypter.decrypt("0721"));
+        //0721
+        //3054
+        //5430
+    }
 }
