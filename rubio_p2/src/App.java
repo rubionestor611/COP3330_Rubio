@@ -19,29 +19,29 @@ public class App {
     }
 
     public static double getUserHeight(){
-        double ret;
+        double input;
         Scanner in = new Scanner(System.in);
         System.out.print("Enter user height: ");
-        ret = in.nextDouble();
+        input = in.nextDouble();
         //user input control, ensuring input is not less than 0
-        while(ret < 0){
+        while(input < 0){
             System.out.print("Please provide an accurate height greater than 0: ");
-            ret = in.nextDouble();
+            input = in.nextDouble();
         }
-        return ret;
+        return input;
     }
 
     public static double getUserWeight(){
-        double ret;
+        double input;
         Scanner in = new Scanner(System.in);
         System.out.print("Enter user weight: ");
-        ret = in.nextDouble();
+        input = in.nextDouble();
         //user input control, ensuring input is not less than 0
-        while(ret < 0){
+        while(input < 0){
             System.out.print("Please provide an accurate weight greater than 0: ");
-            ret = in.nextDouble();
+            input = in.nextDouble();
         }
-        return ret;
+        return input;
     }
 
     public static void displayBmiStatistics(ArrayList<BodyMassIndex> bmiData){
@@ -58,7 +58,7 @@ public class App {
         //to finalize the average
         averageBMI /= bmiData.size();
 
-        System.out.println("Average BMI for the populations provided:\n");
+        System.out.println("Average BMI for the population provided:\n");
         System.out.println("\t" + averageBMI);
     }
 
@@ -76,13 +76,13 @@ public class App {
     }
 
     public static void displayBmiInfo(BodyMassIndex userbmi){
-        System.out.println("User's calculated BMI is " + userbmi.bmiRes);
+        System.out.println("User's calculated BMI is\n\t" + userbmi.bmiRes);
 
         String category = chooseCategory(userbmi.bmiRes);
 
         System.out.println("\nThis qualifies this user in the " + category + " category.\n");
 
-        displayCategories();
+        //displayCategories();
     }
 
     public static String chooseCategory(double bmi){
