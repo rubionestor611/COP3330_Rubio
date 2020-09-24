@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//move category decision to bmi class
+//create tests
+//round to 1 digit
+//while break statement usage
+
 public class App {
     public static void main(String[] args) {
         ArrayList<BodyMassIndex> bmiData = new ArrayList<BodyMassIndex>();
@@ -21,11 +26,11 @@ public class App {
     public static double getUserHeight(){
         double input;
         Scanner in = new Scanner(System.in);
-        System.out.print("Enter user height: ");
+        System.out.print("Enter user height in inches: ");
         input = in.nextDouble();
         //user input control, ensuring input is not less than 0
         while(input < 0){
-            System.out.print("Please provide an accurate height greater than 0: ");
+            System.out.print("Please provide an accurate height greater than 0 in inches: ");
             input = in.nextDouble();
         }
         return input;
@@ -34,11 +39,11 @@ public class App {
     public static double getUserWeight(){
         double input;
         Scanner in = new Scanner(System.in);
-        System.out.print("Enter user weight: ");
+        System.out.print("Enter user weight in pounds: ");
         input = in.nextDouble();
         //user input control, ensuring input is not less than 0
         while(input < 0){
-            System.out.print("Please provide an accurate weight greater than 0: ");
+            System.out.print("Please provide an accurate weight greater than 0 in pounds: ");
             input = in.nextDouble();
         }
         return input;
@@ -52,14 +57,18 @@ public class App {
         double averageBMI = 0;
         //add every recorded BMI in the ArrayList
         for(BodyMassIndex b: bmiData){
-            averageBMI += b.bmiRes;
+            averageBMI += b.getBMIRes();
         }
         //divide by # of items/BMIs in list
         //to finalize the average
         averageBMI /= bmiData.size();
 
         System.out.println("Average BMI for the population provided:\n");
-        System.out.println("\t" + averageBMI);
+        System.out.println("\t" + String.format("%.1f",averageBMI) + "\n");
+        BodyMassIndex averageBMIres = new BodyMassIndex(averageBMI);
+        System.out.print("This means the average person in the provided\n" +
+                "population would be in the " + averageBMIres.bmiCategory()+
+                " category.\n");
     }
 
     public static boolean moreInput(){
@@ -67,33 +76,22 @@ public class App {
         Scanner in = new Scanner(System.in);
         System.out.print("Do you want to add a user's information to calculate their BMI? (Y/N): ");
         String input = in.nextLine();
-        while(input.length() > 1){
+        while(input.length() != 1 ||
+                (!input.equalsIgnoreCase("y") &&
+                        !input.equalsIgnoreCase("n"))){
             System.out.print("Please provide a Y or N (Yes or No) answer.\n" +
-                    "Do you want to add another user's information to calculate their BMI?: ");
+                    "Do you want to add a user's information to calculate their BMI?: ");
             input = in.nextLine();
         }
         return input.equalsIgnoreCase("Y");
     }
 
     public static void displayBmiInfo(BodyMassIndex userbmi){
-        System.out.println("User's calculated BMI is\n\t" + userbmi.bmiRes);
+        System.out.println("User's calculated BMI is\n\t" + String.format("%.1f", userbmi.getBMIRes()));
 
-        String category = chooseCategory(userbmi.bmiRes);
+        String category = userbmi.bmiCategory();
 
         System.out.println("\nThis qualifies this user in the " + category + " category.\n");
-
-        //displayCategories();
-    }
-
-    public static String chooseCategory(double bmi){
-        if(bmi < 18.5){
-            return "Underweight";
-        }else if(bmi >= 18.5 && bmi < 25){
-            return "Normal Weight";
-        }else if(bmi >= 25 && bmi < 30){
-            return "Overweight";
-        }
-        return "Obesity";
     }
 
     public static void displayCategories(){
