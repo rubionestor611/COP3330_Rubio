@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -20,54 +21,56 @@ public class App {
     }
 
     public static double getUserHeight(){
-        double input;
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter user height in inches: ");
-        input = in.nextDouble();
-        //user input control, ensuring input is not less than 0
-        while(input < 0){
-            System.out.print("Please provide an accurate height greater than 0 in inches: ");
-            input = in.nextDouble();
+        try{
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter user height in inches: ");
+            String input = in.nextLine();
+
+            return Double.parseDouble(input);
+        }catch (Exception e){
+            //any exception is strictly the result of wrong formatting or overflowing the space
+            //allocated for a double
+            System.out.println("\nYou need to provide a decimal value representing\n" +
+                    "the user's height in inches.\n");
+            return getUserHeight();
         }
-        return input;
     }
 
     public static double getUserWeight(){
-        double input;
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter user weight in pounds: ");
-        input = in.nextDouble();
-        //user input control, ensuring input is not less than 0
-        while(input < 0){
-            System.out.print("Please provide an accurate weight greater than 0 in pounds: ");
-            input = in.nextDouble();
+        try{
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter user weight in pounds (lbs): ");
+            String input = in.nextLine();
+
+            return Double.parseDouble(input);
+        }catch (Exception e){
+            //any exception is strictly the result of wrong formatting or overflowing the space
+            //allocated for a double
+            System.out.println("\nYou need to provide a decimal value representing\n" +
+                    "the user's weight in pounds (lbs).\n");
+            return getUserWeight();
         }
-        return input;
     }
 
     public static void displayBmiStatistics(ArrayList<BodyMassIndex> bmiData){
         if(bmiData.size() == 0){
+            //if no data was to be found in the arrayList
             System.out.println("\nNo values were provided so no average can be calculated.");
             return;
         }
-        double averageHeight = 0;
-        double averageWeight = 0;
-        //add every recorded BMI in the ArrayList
+        double averageBMI = 0.0;
+
         for(BodyMassIndex b: bmiData){
-            averageHeight += b.getHeight();
-            averageWeight += b.getWeight();
+            averageBMI += b.calculateBMI();
         }
-        //divide by # of items/BMIs in list
-        //to finalize the average
-        averageHeight /= bmiData.size();
-        averageWeight /= bmiData.size();
-        BodyMassIndex averageBMIres = new BodyMassIndex(averageHeight, averageWeight);
+
+        averageBMI /= bmiData.size();
 
         System.out.println("Average BMI for the population provided(based on height and weight values provided):\n");
-        System.out.println("\t" + String.format("%.1f",averageBMIres.calculateBMI()) + "\n");
+        System.out.println("\t" + String.format("%.1f",averageBMI) + "\n");
 
         System.out.print("This means the average person in the provided\n" +
-                "population would be in the " + averageBMIres.bmiCategory()+
+                "population would be in the " + BodyMassIndex.bmiCategory(averageBMI)+
                 " category.\n");
     }
 
@@ -75,6 +78,7 @@ public class App {
         Scanner in = new Scanner(System.in);
         System.out.print("Do you want to add a user's information to calculate their BMI? (Y/N): ");
         String input = in.nextLine();
+        //while input is longer than 1 and it is not an "n" or "y" response, it will keep asking
         while(input.length() != 1 ||
                 (!input.equalsIgnoreCase("y") &&
                         !input.equalsIgnoreCase("n"))){

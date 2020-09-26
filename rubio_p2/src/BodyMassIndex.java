@@ -26,5 +26,15 @@ public class BodyMassIndex {
         }
         return "Obese";
     }
+    public static String bmiCategory(double bmi){
+        if(bmi < 18.5){
+            return "Underweight";
+        }else if(bmi >= 18.5 && bmi < 25){
+            return "Normal Weight";
+        }else if(bmi >= 25 && bmi < 30){
+            return "Overweight";
+        }
+        return "Obese";
+    }
 
 }
