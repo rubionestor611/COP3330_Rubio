@@ -24,6 +24,20 @@ class BodyMassIndexTest {
         assertEquals("Obese", user.bmiCategory());
     }
     //following tests 1 per public method in BodyMassIndex
-
+    @Test
+    public void calculateBMI1(){
+        BodyMassIndex user = new BodyMassIndex(70, 180.56);
+        assertEquals(25.8, user.calculateBMI(), .15);
+    }
+    @Test
+    public void BMIcategorycall(){
+        BodyMassIndex user = new BodyMassIndex(68, 150);
+        assertEquals("Normal Weight", user.bmiCategory());
+    }
+    @Test
+    public void getBMIResTest(){
+        BodyMassIndex user = new BodyMassIndex(85,260);
+        assertEquals(25.3, user.calculateBMI(), .1);
+    }
 
 }

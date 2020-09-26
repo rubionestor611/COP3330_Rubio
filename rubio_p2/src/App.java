@@ -1,10 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//move category decision to bmi class
-//create tests
-//round to 1 digit
-//while break statement usage
 
 public class App {
     public static void main(String[] args) {
@@ -54,25 +50,28 @@ public class App {
             System.out.println("\nNo values were provided so no average can be calculated.");
             return;
         }
-        double averageBMI = 0;
+        double averageHeight = 0;
+        double averageWeight = 0;
         //add every recorded BMI in the ArrayList
         for(BodyMassIndex b: bmiData){
-            averageBMI += b.getBMIRes();
+            averageHeight += b.getHeight();
+            averageWeight += b.getWeight();
         }
         //divide by # of items/BMIs in list
         //to finalize the average
-        averageBMI /= bmiData.size();
+        averageHeight /= bmiData.size();
+        averageWeight /= bmiData.size();
+        BodyMassIndex averageBMIres = new BodyMassIndex(averageHeight, averageWeight);
 
-        System.out.println("Average BMI for the population provided:\n");
-        System.out.println("\t" + String.format("%.1f",averageBMI) + "\n");
-        BodyMassIndex averageBMIres = new BodyMassIndex(averageBMI);
+        System.out.println("Average BMI for the population provided(based on height and weight values provided):\n");
+        System.out.println("\t" + String.format("%.1f",averageBMIres.calculateBMI()) + "\n");
+
         System.out.print("This means the average person in the provided\n" +
                 "population would be in the " + averageBMIres.bmiCategory()+
                 " category.\n");
     }
 
     public static boolean moreInput(){
-        //Y/N
         Scanner in = new Scanner(System.in);
         System.out.print("Do you want to add a user's information to calculate their BMI? (Y/N): ");
         String input = in.nextLine();
@@ -86,20 +85,11 @@ public class App {
         return input.equalsIgnoreCase("Y");
     }
 
-    public static void displayBmiInfo(BodyMassIndex userbmi){
-        System.out.println("User's calculated BMI is\n\t" + String.format("%.1f", userbmi.getBMIRes()));
+    public static void displayBmiInfo(BodyMassIndex userBMI) {
+        System.out.println("User's calculated BMI is\n\t" + String.format("%.1f", userBMI.calculateBMI()));
 
-        String category = userbmi.bmiCategory();
+        String category = userBMI.bmiCategory();
 
         System.out.println("\nThis qualifies this user in the " + category + " category.\n");
-    }
-
-    public static void displayCategories(){
-        System.out.println("Here is some helpful information on how\nthe BMI information gets categorized: ");
-        System.out.println(
-                "\tUnderweight <= 18.5 \n" +
-                "\tNormal weight = 18.5 – 24.9 \n" +
-                "\tOverweight = 25 – 29.9 \n" +
-                "\tObesity = BMI of 30 or greater\n");
     }
 }
