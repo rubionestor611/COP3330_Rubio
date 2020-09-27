@@ -57,5 +57,13 @@ class BodyMassIndexTest {
     public void staticCategoryCallTest(){
         assertEquals("Obese", BodyMassIndex.bmiCategory(35.97));
     }
+    @Test
+    public void staticCategoryCallTest2(){
+        assertEquals("Underweight", BodyMassIndex.bmiCategory(70.25,129.5));
+    }
+    @Test
+    public void staticBMICalcTest(){
+        assertEquals(22.14870825,BodyMassIndex.calculateBMI(69,150), 0.1);
+    }
 
 }
