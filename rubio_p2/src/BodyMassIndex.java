@@ -18,8 +18,16 @@ public class BodyMassIndex {
     public static double calculateBMI(double height, double weight){
         return (703 * weight)/(Math.pow(height, 2));
     }
+    //Overloading bmiCategory method
     public String bmiCategory(){
-        return bmiCategory(this.calculateBMI());
+        //sends the double value to precision of ten's place to get
+        //same precision the categories use
+        return bmiCategory(Double.parseDouble(String.format("%.1f", this.calculateBMI())));
+    }
+    public static String bmiCategory(double height, double weight){
+        //sends the double value to precision of ten's place to get
+        //same precision the categories use
+        return bmiCategory(Double.parseDouble(String.format("%.1f", BodyMassIndex.calculateBMI(height, weight))));
     }
     public static String bmiCategory(double bmi){
         if(bmi < 18.5){
@@ -31,8 +39,5 @@ public class BodyMassIndex {
         }
         return "Obese";
     }
-    public static String bmiCategory(double height, double weight){
-        double bmi = calculateBMI(height, weight);
-        return bmiCategory(bmi);
-    }
+
 }

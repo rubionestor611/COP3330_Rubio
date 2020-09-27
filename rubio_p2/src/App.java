@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -25,6 +24,7 @@ public class App {
         try{
             Scanner in = new Scanner(System.in);
             System.out.print("Enter user height in inches: ");
+            //scanning string line to ensure something like "70.25 something" doesn't pass as "70.25"
             String input = in.nextLine();
             ret = Double.parseDouble(input);
             while (ret < 0){
@@ -47,6 +47,7 @@ public class App {
         try{
             Scanner in = new Scanner(System.in);
             System.out.print("Enter user weight in pounds (lbs): ");
+            //scanning string line to ensure something like "70.25 something" doesn't pass as "70.25"
             String input = in.nextLine();
             ret = Double.parseDouble(input);
             while (ret < 0){
@@ -70,6 +71,7 @@ public class App {
             System.out.println("\nNo values were provided so no average can be calculated.");
             return;
         }
+
         double averageBMI = 0.0;
 
         for(BodyMassIndex b: bmiData){
@@ -80,9 +82,10 @@ public class App {
 
         System.out.println("Average BMI for the population provided(based on height and weight values provided):\n");
         System.out.println("\t" + String.format("%.1f",averageBMI) + "\n");
-
+        //"BodyMassIndex.bmiCategory(Double.parseDouble(String.format("%.1f", averageBMI)))"
+        //will send in a decimal value to the ten's place, to better use the categories given by the NHLBI
         System.out.print("This means the average person in the provided\n" +
-                "population would be in the " + BodyMassIndex.bmiCategory(averageBMI)+
+                "population would be in the " + BodyMassIndex.bmiCategory(Double.parseDouble(String.format("%.1f", averageBMI)))+
                 " category.\n");
     }
 

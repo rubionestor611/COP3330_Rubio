@@ -29,21 +29,6 @@ class BodyMassIndexTest {
         assertNotEquals(b, null);
     }
     @Test
-    public void calculateBMI1(){
-        BodyMassIndex user = new BodyMassIndex(70, 180.56);
-        assertEquals(25.8, user.calculateBMI(), .15);
-    }
-    @Test
-    public void BMIcategoryTest(){
-        BodyMassIndex user = new BodyMassIndex(68, 150);
-        assertEquals("Normal Weight", user.bmiCategory());
-    }
-    @Test
-    public void CalculateBMI2(){
-        BodyMassIndex user = new BodyMassIndex(85,260);
-        assertEquals(25.3, user.calculateBMI(), .1);
-    }
-    @Test
     public void getHeightTest(){
         BodyMassIndex b = new BodyMassIndex(56.897, 87.56);
         assertEquals(56.897, b.getHeight());
@@ -54,6 +39,20 @@ class BodyMassIndexTest {
         assertEquals(87.56, b.getWeight());
     }
     @Test
+    public void CalculateBMITest(){
+        BodyMassIndex user = new BodyMassIndex(85,260);
+        assertEquals(25.3, user.calculateBMI(), .1);
+    }
+    @Test
+    public void staticBMICalcTest(){
+        assertEquals(22.14870825,BodyMassIndex.calculateBMI(69,150), 0.1);
+    }
+    @Test
+    public void BMIcategoryTest(){
+        BodyMassIndex user = new BodyMassIndex(68, 150);
+        assertEquals("Normal Weight", user.bmiCategory());
+    }
+    @Test
     public void staticCategoryCallTest(){
         assertEquals("Obese", BodyMassIndex.bmiCategory(35.97));
     }
@@ -61,9 +60,6 @@ class BodyMassIndexTest {
     public void staticCategoryCallTest2(){
         assertEquals("Underweight", BodyMassIndex.bmiCategory(70.25,129.5));
     }
-    @Test
-    public void staticBMICalcTest(){
-        assertEquals(22.14870825,BodyMassIndex.calculateBMI(69,150), 0.1);
-    }
+
 
 }
