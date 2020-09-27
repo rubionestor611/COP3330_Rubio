@@ -27,7 +27,7 @@ public class App {
             //scanning string line to ensure something like "70.25 something" doesn't pass as "70.25"
             String input = in.nextLine();
             ret = Double.parseDouble(input);
-            while (ret < 0){
+            while (ret <= 0){
                 System.out.print("Please provide a positive value for the user's height in inches :");
                 input = in.nextLine();
                 ret = Double.parseDouble(input);
@@ -50,7 +50,7 @@ public class App {
             //scanning string line to ensure something like "70.25 something" doesn't pass as "70.25"
             String input = in.nextLine();
             ret = Double.parseDouble(input);
-            while (ret < 0){
+            while (ret <= 0){
                 System.out.print("Please provide a positive value for the user's weight in pounds (lbs) :");
                 input = in.nextLine();
                 ret = Double.parseDouble(input);
