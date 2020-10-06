@@ -20,11 +20,11 @@ public class ShapeTest {
         Shape2D shape = new Square(0.5);
         assertEquals(0.25, shape.getArea());
     }
-    /*
+
     //Triangle tests
     @Test
     public void testTriangleName(){
-        Shape shape = new Triangle(10);
+        Shape shape = new Triangle(100, 100);
         assertEquals("triangle", shape.getName());
     }
     @Test
@@ -37,7 +37,7 @@ public class ShapeTest {
         Shape2D shape = new Triangle(0.5, 0.25);
         assertEquals(.063, shape.getArea(), 0.001);
     }
-    */
+
     //Circle Tests
     @Test
     public void testCircleName(){
