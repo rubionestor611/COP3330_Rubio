@@ -19,7 +19,7 @@ public class Sphere extends Shape3D{
     public double getVolume(){
         return this.volume;
     }
-    private double calculateArea(){
+    protected double calculateArea(){
         //a = 4pir^2
         return ((double) 4 * Math.PI * Math.pow(this.radius, 2));
     }

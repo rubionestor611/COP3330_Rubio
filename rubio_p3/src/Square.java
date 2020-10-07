@@ -5,7 +5,7 @@ public class Square extends Shape2D{
         this.name = "square";
         this.area = calculateArea();
     }
-    private double calculateArea(){
+    protected double calculateArea(){
         return this.side_length * this.side_length;
     }
     @Override

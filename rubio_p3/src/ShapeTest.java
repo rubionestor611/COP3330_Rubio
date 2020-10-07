@@ -20,7 +20,6 @@ public class ShapeTest {
         Shape2D shape = new Square(0.5);
         assertEquals(0.25, shape.getArea());
     }
-
     //Triangle tests
     @Test
     public void testTriangleName(){
@@ -30,7 +29,7 @@ public class ShapeTest {
     @Test
     public void testTriangleArea(){
         Shape2D shape = new Triangle(10, 10);
-        assertEquals(50, shape.getArea(), 0.001);
+        assertEquals(50, shape.getArea());
     }
     @Test
     public void testTriangleArea2(){
@@ -54,7 +53,7 @@ public class ShapeTest {
         Shape2D shape = new Circle(0.5);
         assertEquals(0.79, shape.getArea(), 0.01);
     }
-    /*
+
     //Cube Tests
     @Test
     public void testCubeName(){
@@ -81,7 +80,7 @@ public class ShapeTest {
         Shape3D shape = new Cube(0.5);
         assertEquals(0.13, shape.getVolume(), 0.01);
     }
-    */
+
     //Pyramid Tests
     @Test
     public void testPyramidName(){

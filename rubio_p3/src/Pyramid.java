@@ -11,7 +11,7 @@ public class Pyramid extends Shape3D{
         this.area = calculateArea();
     }
 
-    private double calculateArea(){
+    protected double calculateArea(){
         double half_width = width/2;
         double half_length = length/2;
         double solution = length * width;

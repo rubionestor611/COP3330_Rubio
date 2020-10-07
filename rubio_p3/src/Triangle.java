@@ -7,7 +7,7 @@ public class Triangle extends Shape2D{
         this.name = "triangle";
         this.area = calculateArea();
     }
-    private double calculateArea(){
+    protected double calculateArea(){
         return ((base * height) / 2);
     }
     public double getBase(){
