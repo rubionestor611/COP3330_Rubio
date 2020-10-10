@@ -10,9 +10,11 @@ public class Triangle extends Shape2D{
     protected double calculateArea(){
         return ((base * height) / 2);
     }
+
     public double getBase(){
         return this.base;
     }
+
     public double getHeight(){
         return this.height;
     }

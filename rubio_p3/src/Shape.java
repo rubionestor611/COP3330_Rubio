@@ -1,6 +1,7 @@
 abstract class Shape {
     String name;
     double area;
+
     abstract String getName();
     abstract double getArea();
     abstract double calculateArea();

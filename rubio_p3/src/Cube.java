@@ -25,6 +25,7 @@ public class Cube extends Shape3D {
     public double getArea() {
         return this.area;
     }
+
     @Override
     protected double calculateArea(){
         return (6 * Math.pow(side_length, 2));

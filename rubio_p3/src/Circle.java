@@ -13,6 +13,7 @@ public class Circle extends Shape2D{
     double getArea() {
         return this.area;
     }
+
     double getRadius(){
         return this.radius;
     }
