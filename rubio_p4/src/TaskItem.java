@@ -46,4 +46,8 @@ public class TaskItem {
     public String getDueDate(){
         return this.dueDate;
     }
+    public void printTask(){
+        System.out.print("[" + this.dueDate + "] " +
+                this.title + ": " + this.description);
+    }
 }
