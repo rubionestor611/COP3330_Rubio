@@ -5,8 +5,7 @@ public class App {
     private ArrayList<TaskList> tasklist = new ArrayList<>();
 
     public static void main(String[] args){
-        TaskList tl = new TaskList();
-        //MainMenu();
+        MainMenu();
     }
     public static void MainMenu(){
         printMainMenu();

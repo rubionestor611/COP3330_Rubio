@@ -1,15 +1,19 @@
+
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 public class TaskItem {
     private String title;
     private String description;
     private String dueDate;
-    public TaskItem(){
-        this.title = getResponse("Task Title: ");
-        this.description = getResponse("Task Description: ");
-        this.dueDate = getResponse("Task Due Date: ");
-    }
-    public TaskItem(String title, String desc, String dueDate){
+    public TaskItem(String title, String desc, String dueDate) throws DateTimeException,
+            IllegalArgumentException{
+        if(!isValidDate(dueDate)){
+            throw new DateTimeException("You entered an invalid due date. Task not created");
+        }
+        if(title.length() == 0){
+            throw new IllegalArgumentException("Title must be at least 1 character long; task not created");
+        }
         this.title = title;
         this.description = desc;
         this.dueDate = dueDate;
@@ -41,13 +45,48 @@ public class TaskItem {
         return this.description;
     }
     public void setDueDate(String duedate){
-        this.dueDate = duedate;
+            if(isValidDate(duedate)){
+                this.dueDate = duedate;
+                return;
+            } else{
+                throw new DateTimeException("You entered an invalid due date. Task due date not updated.");
+            }
     }
     public String getDueDate(){
         return this.dueDate;
     }
-    public void printTask(){
-        System.out.print("[" + this.dueDate + "] " +
+    @Override
+    public String toString(){
+        return ("[" + this.dueDate + "] " +
                 this.title + ": " + this.description);
+    }
+    private static boolean isValidDate(String Date){
+        //ideal date YYYY-MM-DD
+                   //0123456789
+        try{
+            if(Date.charAt(4) != '-' || Date.charAt(7) != '-'){
+                System.out.println("not right -'s");
+                return false;
+            }
+            int month = Integer.parseInt(Date.substring(5,7));
+            if(month > 12 || month < 1){
+                System.out.println(month);
+                System.out.println("months not right");
+                return false;
+            }
+            int day = Integer.parseInt(Date.substring(8,10));
+            if(day < 1 || day > 31){
+                System.out.println("days not right");
+                return false;
+            }
+            if(month == 02 && day > 28){
+                System.out.println("days not right");
+                return false;
+            }
+        } catch(Exception e){
+            System.out.println("exception found");
+            return false;
+        }
+        return true;
     }
 }

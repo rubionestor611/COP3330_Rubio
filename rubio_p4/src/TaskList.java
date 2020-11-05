@@ -6,14 +6,15 @@ public class TaskList {
     ArrayList<TaskItem> list = new ArrayList<>();
 
     public TaskList(){
-        System.out.println(findNextFileName());
+        File sourceofList = new File(findNextFileName());
     }
     public static String findNextFileName(){
         try{
             String task = "task";
-            File file = new File("TaskList.java");
+            File file = new File("task.txt");
             int count = 0;
             while(file.exists()){
+                count++;
                 task = "task";
                 task += String.valueOf(count);
                 task += ".txt";
@@ -41,8 +42,8 @@ public class TaskList {
         int len = this.list.size();
         for(int i = 0; i < len; i++){
             System.out.print(i);
-            System.out.println(") ");
-            this.list.get(i).printTask();
+            System.out.print(") ");
+            System.out.println(this.list.get(i));
         }
     }
 }
