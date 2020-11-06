@@ -6,6 +6,7 @@ public class TaskItem {
     private String title;
     private String description;
     private String dueDate;
+    private boolean Complete;
     public TaskItem(String title, String desc, String dueDate) throws DateTimeException,
             IllegalArgumentException{
         if(!isValidDate(dueDate)){
@@ -17,7 +18,23 @@ public class TaskItem {
         this.title = title;
         this.description = desc;
         this.dueDate = dueDate;
+        this.Complete = false;
     }
+    public void updateTask(String title, String desc, String dueDate) throws DateTimeException,
+            IllegalArgumentException{
+        try{
+            this.setDueDate(dueDate);
+            this.setDescription(desc);
+            this.setTitle(title);
+        }catch(IllegalArgumentException i){
+            throw i;
+        }catch(DateTimeException d){
+            throw d;
+        }catch(Exception e){
+            throw e;
+        }
+    }
+
     public static String getResponse(String s){
 
         String ret  = "";
@@ -33,6 +50,9 @@ public class TaskItem {
         return ret;
     }
     public void setTitle(String title){
+        if(title.length() == 0){
+            throw new IllegalArgumentException("Title entered needs to be at least one character in length. Task title not updated.");
+        }
         this.title = title;
     }
     public String getTitle(){
@@ -57,6 +77,11 @@ public class TaskItem {
     }
     @Override
     public String toString(){
+
+        if(this.Complete){
+            return ("[" + this.dueDate + "] " + "*** " +
+                    this.title + ": " + this.description);
+        }
         return ("[" + this.dueDate + "] " +
                 this.title + ": " + this.description);
     }
@@ -79,7 +104,7 @@ public class TaskItem {
                 System.out.println("days not right");
                 return false;
             }
-            if(month == 02 && day > 28){
+            if(month == 2 && day > 28){
                 System.out.println("days not right");
                 return false;
             }
@@ -88,5 +113,11 @@ public class TaskItem {
             return false;
         }
         return true;
+    }
+    public void complete(){
+        this.Complete = true;
+    }
+    public void incomplete(){
+        this.Complete = false;
     }
 }

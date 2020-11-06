@@ -3,47 +3,39 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<TaskItem> list = new ArrayList<>();
+    private ArrayList<TaskItem> list = new ArrayList<>();
 
     public TaskList(){
-        File sourceofList = new File(findNextFileName());
-    }
-    public static String findNextFileName(){
-        try{
-            String task = "task";
-            File file = new File("task.txt");
-            int count = 0;
-            while(file.exists()){
-                count++;
-                task = "task";
-                task += String.valueOf(count);
-                task += ".txt";
-                file = new File(task);
-            }
-            if(file.createNewFile()){
-                System.out.println("Task List Created : " + task);
-                return task;
-            }else{
-                return null;
-            }
-        } catch(Exception e){
-            System.out.println("Error occured when creating new file");
-            return null;
-        }
 
     }
+
     public void addTask(TaskItem t){
         this.list.add(t);
     }
-
-    public void print(){
+    public int Size(){
+        return this.list.size();
+    }
+    public void printTaskList(){
         System.out.println("Current tasks\n" +
                            "_____________");
+        System.out.println(this.toString());
+    }
+    @Override
+    public String toString(){
+        String ret = "";
         int len = this.list.size();
         for(int i = 0; i < len; i++){
-            System.out.print(i);
-            System.out.print(") ");
-            System.out.println(this.list.get(i));
+            ret += Integer.toString(i);
+            ret += ") ";
+            ret += this.list.get(i).toString();
+            ret += "\n";
         }
+        return ret;
+    }
+    public TaskItem getItem(int index){
+        return this.list.get(index);
+    }
+    public void savetoFile(String filename){
+
     }
 }
