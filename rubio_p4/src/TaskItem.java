@@ -1,5 +1,6 @@
 
 import java.time.DateTimeException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskItem {
@@ -82,6 +83,9 @@ public class TaskItem {
             return ("[" + this.dueDate + "] " + "*** " +
                     this.title + ": " + this.description);
         }
+        return regardlessofCompletion();
+    }
+    public String regardlessofCompletion(){
         return ("[" + this.dueDate + "] " +
                 this.title + ": " + this.description);
     }
@@ -90,22 +94,22 @@ public class TaskItem {
                    //0123456789
         try{
             if(Date.charAt(4) != '-' || Date.charAt(7) != '-'){
-                System.out.println("not right -'s");
                 return false;
             }
             int month = Integer.parseInt(Date.substring(5,7));
             if(month > 12 || month < 1){
                 System.out.println(month);
-                System.out.println("months not right");
                 return false;
             }
             int day = Integer.parseInt(Date.substring(8,10));
             if(day < 1 || day > 31){
-                System.out.println("days not right");
                 return false;
             }
             if(month == 2 && day > 28){
-                System.out.println("days not right");
+                return false;
+            }
+            if((month == 4 || month == 6 || month == 9 ||month == 11)
+                    && day == 31){
                 return false;
             }
         } catch(Exception e){
@@ -119,5 +123,15 @@ public class TaskItem {
     }
     public void incomplete(){
         this.Complete = false;
+    }
+    public boolean isComplete(){
+        return this.Complete;
+    }
+    public String toWriteFormat(){
+        String ret = this.title + "::" + this.description + "::" + this.dueDate;
+        if(this.Complete){
+            ret += "::c";
+        }
+        return ret;
     }
 }
