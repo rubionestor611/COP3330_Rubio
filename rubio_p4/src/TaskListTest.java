@@ -246,4 +246,23 @@ class TaskListTest {
             Assert.fail();
         }
     }
+    @Test
+    public void updatesCompletedTasksWhenWriting(){
+        TaskList tl = new TaskList();
+        try{
+            for (int i = 0; i < 4; i++) {
+                tl.addTask(new TaskItem("happy", "desc", "2020-11-06"));
+                if(i%2 == 0){
+                    tl.getItem(i).complete();
+                }
+            }
+            String testfile = "NestorsSampleText00002.txt";
+            tl.writeToFile(testfile);
+            Scanner s = new Scanner(new File("src/" + testfile));
+            assertEquals("happy::desc::2020-11-06::c",s.nextLine());
+        }catch(Exception e){
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }

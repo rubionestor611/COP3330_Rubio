@@ -1,8 +1,5 @@
 import java.io.*;
-import java.nio.file.FileSystemAlreadyExistsException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class TaskList {
     private ArrayList<TaskItem> list = new ArrayList<>();
@@ -25,20 +22,41 @@ public class TaskList {
         System.out.println(this.toString());
     }
 
-    public void printCompleted() {
+    public ArrayList<Integer> printCompletedReturnCompleteList() {
         int count = 0;
+        ArrayList<Integer> al = new ArrayList<>();
         int len = this.Size();
-        System.out.println("Completed Tasks" +
-                "_____________");
+        System.out.println("Completed Tasks\n" +
+                           "_____________");
         for (int i = 0; i < len; i++) {
             TaskItem t = this.getItem(i);
             if (t.isComplete()) {
+                al.add(i);
                 System.out.println(count + ") " + t.regardlessofCompletion());
                 count++;
             }
         }
+        return al;
     }
-
+    public ArrayList<Integer> printUncompletedReturnIncompleteList() {
+        int count = 0;
+        ArrayList<Integer> al = new ArrayList<>();
+        int len = this.Size();
+        System.out.println("Completed Tasks\n" +
+                           "_____________");
+        for (int i = 0; i < len; i++) {
+            TaskItem t = this.getItem(i);
+            if (!t.isComplete()) {
+                al.add(i);
+                System.out.println(count + ") " + t.regardlessofCompletion());
+                count++;
+            }
+        }
+        return al;
+    }
+    public int indexof(TaskItem t){
+        return this.list.indexOf(t);
+    }
     @Override
     public String toString() {
         String ret = "";
@@ -108,6 +126,22 @@ public class TaskList {
             pw.close();
         }catch(Exception e){
             throw new Exception("append failed");
+        }
+    }
+    public boolean savetoFile() throws Exception {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter the filename to save as: ");
+        String filename = s.nextLine();
+        try{
+            if(filename.substring(filename.length() - 4).equals(".txt")){
+                this.writeToFile(filename);
+                return true;
+            }else{
+                this.writeToFile(filename + ".txt");
+                return true;
+            }
+        }catch(Exception e){
+            return false;
         }
     }
 }
