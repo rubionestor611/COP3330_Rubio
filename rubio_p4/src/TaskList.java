@@ -42,7 +42,7 @@ public class TaskList {
         int count = 0;
         ArrayList<Integer> al = new ArrayList<>();
         int len = this.Size();
-        System.out.println("Completed Tasks\n" +
+        System.out.println("Uncompleted Tasks\n" +
                            "_____________");
         for (int i = 0; i < len; i++) {
             TaskItem t = this.getItem(i);
@@ -130,7 +130,7 @@ public class TaskList {
     }
     public boolean savetoFile() throws Exception {
         Scanner s = new Scanner(System.in);
-        System.out.println("Enter the filename to save as: ");
+        System.out.print("Enter the filename to save as: ");
         String filename = s.nextLine();
         try{
             if(filename.substring(filename.length() - 4).equals(".txt")){

@@ -17,9 +17,10 @@ public class App {
             if (input == 1) {
                 tl = new TaskList();
                 try{
+                    System.out.println("New task list created.\n");
                     listOperationMenu(tl);
                 }catch(Exception e){
-                    System.out.println("PRoblem in the listoperations menu.\n");
+                    System.out.println("Problem in the list operations menu.\n");
                 }
             }
             if (input == 2) {

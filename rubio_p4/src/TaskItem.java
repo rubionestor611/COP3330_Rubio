@@ -9,11 +9,11 @@ public class TaskItem {
     private boolean Complete;
     public TaskItem(String title, String desc, String dueDate) throws DateTimeException,
             IllegalArgumentException{
-        if(!isValidDate(dueDate)){
-            throw new DateTimeException("You entered an invalid due date. Task not created");
-        }
         if(title.length() == 0){
             throw new IllegalArgumentException("Title must be at least 1 character long; task not created");
+        }
+        if(!isValidDate(dueDate)){
+            throw new DateTimeException("You entered an invalid due date. Task not created");
         }
         this.title = title;
         this.description = desc;
@@ -97,7 +97,6 @@ public class TaskItem {
             }
             int month = Integer.parseInt(Date.substring(5,7));
             if(month > 12 || month < 1){
-                System.out.println(month);
                 return false;
             }
             int day = Integer.parseInt(Date.substring(8,10));
@@ -112,7 +111,6 @@ public class TaskItem {
                 return false;
             }
         } catch(Exception e){
-            System.out.println("exception found");
             return false;
         }
         return true;
