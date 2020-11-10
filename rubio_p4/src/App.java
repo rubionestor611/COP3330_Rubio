@@ -1,8 +1,6 @@
 import java.io.FileNotFoundException;
 import java.time.DateTimeException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 
 public class App {
@@ -57,16 +55,7 @@ public class App {
             }
             if(input == 3){
                 try{
-                    Scanner s = new Scanner(System.in);
-                    tl.printTaskList();
-                    System.out.print("Please enter the index of the task you wish to use: ");
-                    int index = s.nextInt();
-                    if(index < 0 || index >= tl.Size()){
-                        throw new IndexOutOfBoundsException();
-                    }
-                    String[] newtaskinfo = getTaskInfoFromUser();
-                    tl.getItem(index).updateTask(newtaskinfo[0],newtaskinfo[1],newtaskinfo[2]);
-                    System.out.println("Task updated");
+                    updateTask(tl);
                 }catch(IndexOutOfBoundsException iob){
                     System.out.println("Not a valid index for a task on the list.");
                 }catch(IllegalArgumentException ill){
@@ -81,35 +70,15 @@ public class App {
                 }
             }
             if(input == 4){
-                //list->find item->remove
                 try{
-                    Scanner s = new Scanner(System.in);
-                    tl.printTaskList();
-                    System.out.print("Please enter the index of the task you wish to delete: ");
-                    int index = s.nextInt();
-                    if(index < 0 || index >= tl.Size()){
-                        throw new IndexOutOfBoundsException();
-                    }
-                    tl.removeTask(index);
-                    System.out.println("Task removed");
+                    removefromList(tl);
                 }catch(IndexOutOfBoundsException iob){
                     System.out.println("Not a valid index for a task on the list.");
                 }
             }
-            if(input == 5){//fix
-                //print incomplete list
-                //mark item as completed
+            if(input == 5){
                 try{
-                    ArrayList<Integer> al = tl.printUncompletedReturnIncompleteList();
-                    System.out.print("Enter the index of the task you wish to mark as complete: ");
-                    Scanner s = new Scanner(System.in);
-                    int index = s.nextInt();
-                    if(index < 0 || index > al.size()){
-                        throw new IndexOutOfBoundsException();
-                    }
-                    int indexinlist = al.get(index);
-                    tl.getItem(indexinlist).complete();
-                    System.out.println("\nTask marked as complete.\n");
+                    markAsComplete(tl);
                 }catch(IndexOutOfBoundsException i){
                     System.out.println("Not a valid index for a task on the list.");
                 }catch(Exception e){
@@ -120,16 +89,7 @@ public class App {
             if(input == 6){
                 //unmark as completed
                 try{
-                    ArrayList<Integer> al = tl.printCompletedReturnCompleteList();
-                    System.out.print("Enter the index of the task you wish to mark as incomplete: ");
-                    Scanner s = new Scanner(System.in);
-                    int index = s.nextInt();
-                    if(index < 0 || index > al.size()){
-                        throw new IndexOutOfBoundsException();
-                    }
-                    int indexinlist = al.get(index);
-                    tl.getItem(indexinlist).incomplete();
-                    System.out.println("\nTask marked as incomplete.\n");
+                    unmarkAsComplete(tl);
                 }catch(IndexOutOfBoundsException i){
                     System.out.println("Not a valid index for a task on the list.");
                 }catch(Exception e){
@@ -220,4 +180,61 @@ public class App {
         ret[2] = s.nextLine();
         return ret;
     }
+    public static void unmarkAsComplete(TaskList tl) throws IndexOutOfBoundsException{
+        ArrayList<Integer> al = tl.printCompletedReturnCompleteList();
+        if(al.size() != 0){
+            System.out.print("Enter the index of the task you wish to mark as incomplete: ");
+            Scanner s = new Scanner(System.in);
+            int index = s.nextInt();
+            if(index < 0 || index > al.size()){
+                throw new IndexOutOfBoundsException();
+            }
+            int indexinlist = al.get(index);
+            tl.getItem(indexinlist).incomplete();
+            System.out.println("\nTask marked as incomplete.\n");
+        }
+    }
+    public static void markAsComplete(TaskList tl) throws IndexOutOfBoundsException{
+        ArrayList<Integer> al = tl.printUncompletedReturnIncompleteList();
+        if(al.size() != 0){
+            System.out.print("Enter the index of the task you wish to mark as complete: ");
+            Scanner s = new Scanner(System.in);
+            int index = s.nextInt();
+            if(index < 0 || index > al.size()){
+                throw new IndexOutOfBoundsException();
+            }
+            int indexinlist = al.get(index);
+            tl.getItem(indexinlist).complete();
+            System.out.println("\nTask marked as complete.\n");
+        }
+
+    }
+    public static void removefromList(TaskList tl) throws IndexOutOfBoundsException{
+        Scanner s = new Scanner(System.in);
+        tl.printTaskList();
+        if(tl.Size() != 0){
+            System.out.print("Please enter the index of the task you wish to delete: ");
+            int index = s.nextInt();
+            if(index < 0 || index >= tl.Size()){
+                throw new IndexOutOfBoundsException();
+            }
+            tl.removeTask(index);
+            System.out.println("Task removed");
+        }
+    }
+    public static void updateTask(TaskList tl) throws IndexOutOfBoundsException, IllegalArgumentException, DateTimeException{
+        Scanner s = new Scanner(System.in);
+        tl.printTaskList();
+        if(tl.Size() != 0){
+            System.out.print("Please enter the index of the task you wish to edit: ");
+            int index = s.nextInt();
+            if(index < 0 || index >= tl.Size()){
+                throw new IndexOutOfBoundsException();
+            }
+            String[] newtaskinfo = getTaskInfoFromUser();
+            tl.getItem(index).updateTask(newtaskinfo[0],newtaskinfo[1],newtaskinfo[2]);
+            System.out.println("Task updated");
+        }
+    }
+
 }

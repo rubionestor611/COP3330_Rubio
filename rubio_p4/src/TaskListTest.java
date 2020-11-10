@@ -1,10 +1,8 @@
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
