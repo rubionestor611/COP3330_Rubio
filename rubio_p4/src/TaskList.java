@@ -5,7 +5,6 @@ public class TaskList {
     private ArrayList<TaskItem> list = new ArrayList<>();
 
     public TaskList() {
-
     }
 
     public void addTask(TaskItem t) {
@@ -104,10 +103,13 @@ public class TaskList {
     public void writeToFile(String filename) throws Exception{
         File file = new File("src/" + filename);
         try{
-            if(file.delete()){
+            if(file.exists()){
+                file.delete();
+                file.createNewFile();
                 FileWriter fw = new FileWriter(file);
                 PrintWriter pw = new PrintWriter(fw);
                 writeText(pw);
+                fw.close();
             }else{
                 if(file.createNewFile()){
                     writeToFile(filename);
@@ -144,4 +146,5 @@ public class TaskList {
             return false;
         }
     }
+
 }

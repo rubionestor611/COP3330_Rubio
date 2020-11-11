@@ -221,8 +221,8 @@ class TaskListTest {
     public void canFullyReadinTasks(){
         TaskList tl = new TaskList();
         try{
-            tl.loadList("NestorsTestTextFile00.txt");
-            assertEquals(2, tl.Size());
+            tl.loadList("NestorsSampleText00001.txt");
+            assertEquals(4, tl.Size());
         }catch(Exception e){
             e.printStackTrace();
             Assert.fail();

@@ -7,15 +7,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskItemTest {
     @Test
     public void creatingTaskItemFailsWithInvalidDueDate() {
-        assertThrows(DateTimeException.class, () -> {
-            new TaskItem("T", "D", "20200821");
+        assertThrows(Exception.class, () -> {
+            TaskItem t = new TaskItem("T", "D", "20200821");
+            App.isValidTaskInfo(t.getTitle(),t.getDueDate());
         });
     }
 
     @Test
     public void creatingTaskItemFailsWithInvalidTitle() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new TaskItem("", "D", "2020-07-21");
+        assertThrows(Exception.class, () -> {
+            if (new TaskItem("", "D", "2020-07-21").getTitle().length()==0){
+                throw new Exception();
+            }
         });
     }
 
@@ -36,6 +39,7 @@ class TaskItemTest {
         TaskItem t = new TaskItem("Hello", "Howdy", "2020-07-21");
         assertThrows(DateTimeException.class, () -> {
             t.updateTask("Hello", "Howdy", "2020-02-30");
+            App.isValidTaskInfo(t.getTitle(),t.getDueDate());
         });
     }
 
@@ -51,6 +55,7 @@ class TaskItemTest {
         TaskItem t = new TaskItem("Hello", "Howdy", "2020-07-21");
         assertThrows(IllegalArgumentException.class, () -> {
             t.updateTask("", "Howdy", "2020-07-21");
+            App.isValidTaskInfo(t.getTitle(),t.getDueDate());
         });
     }
 

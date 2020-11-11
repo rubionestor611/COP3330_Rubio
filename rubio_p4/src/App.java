@@ -28,7 +28,7 @@ public class App {
                 try{
                     tl = new TaskList();
                     tl.loadList(getFileName());
-                    System.out.print("task list has been loaded");
+                    System.out.println("task list has been loaded");
                     listOperationMenu(tl);
                 } catch (FileNotFoundException e) {
                     System.out.println("File does not exist\n");
@@ -50,8 +50,14 @@ public class App {
                 tl.printTaskList();
             }
             if(input == 2){
-                if(addtoTaskList(tl)){
-                    System.out.println("Task created and added to the list.");
+                try{
+                    if(addtoTaskList(tl)){
+                        System.out.println("Task created and added to the list.");
+                    }
+                }catch(IllegalArgumentException i){
+                    System.out.println("Title needs to be at least one character long.\nTask not created.");
+                }catch(DateTimeException d){
+                    System.out.println("DueDate needs to be a real date in YYYY-MM-DD format.\nTask not created.");
                 }
             }
             if(input == 3){
@@ -63,7 +69,7 @@ public class App {
                     System.out.println("Title needs to be at least one character in length.\n" +
                                        "Task not updated.");
                 }catch (DateTimeException d){
-                    System.out.println("Due date needs to be in a valid YYYY-MM-DD format.\n" +
+                    System.out.println("Due date needs to be a real date in a valid YYYY-MM-DD format.\n" +
                                        "Task not updated.");
                 }
                 catch(Exception e){
@@ -154,21 +160,18 @@ public class App {
         System.out.println("2) load an existing list");
         System.out.println("3) quit");
     }
-    public static boolean addtoTaskList(TaskList tl){
+    public static boolean addtoTaskList(TaskList tl)throws IllegalArgumentException, DateTimeException{
         String[] taskInfo = getTaskInfoFromUser();
-        try{
-            TaskItem t = new TaskItem(taskInfo[0], taskInfo[1], taskInfo[2]);
-            tl.addTask(t);
-            return true;
-        } catch (DateTimeException e) {
-            System.out.println("DueDate needs to be in YYYY-MM-DD format.\n" +
-                               "Task not created.");
-            return false;
-        } catch (IllegalArgumentException e) {
-            System.out.println("Title needs to be at least one character long.\n" +
-                               "Task not created.");
-            return false;
+
+        if(taskInfo[0].length() == 0){
+            throw new IllegalArgumentException();
         }
+        if(!isValidDate(taskInfo[2])){
+            throw new DateTimeException("fail");
+        }
+        TaskItem t = new TaskItem(taskInfo[0], taskInfo[1], taskInfo[2]);
+        tl.addTask(t);
+        return true;
     }
     public static String[] getTaskInfoFromUser(){
         Scanner s = new Scanner(System.in);
@@ -233,9 +236,46 @@ public class App {
                 throw new IndexOutOfBoundsException();
             }
             String[] newtaskinfo = getTaskInfoFromUser();
-            tl.getItem(index).updateTask(newtaskinfo[0],newtaskinfo[1],newtaskinfo[2]);
-            System.out.println("Task updated");
+            if(isValidTaskInfo(newtaskinfo[0], newtaskinfo[2])){
+                tl.getItem(index).updateTask(newtaskinfo[0],newtaskinfo[1],newtaskinfo[2]);
+                System.out.println("Task updated");
+            }
         }
     }
-
+    public static boolean isValidTaskInfo(String title,String duedate) throws IllegalArgumentException, DateTimeException{
+        if(title.length() == 0){
+            throw new IllegalArgumentException();
+        }
+        if(!isValidDate(duedate)){
+            throw new DateTimeException("");
+        }
+        return true;
+    }
+    private static boolean isValidDate(String Date){
+        //ideal date YYYY-MM-DD
+        //0123456789
+        try{
+            if(Date.charAt(4) != '-' || Date.charAt(7) != '-'){
+                return false;
+            }
+            int month = Integer.parseInt(Date.substring(5,7));
+            if(month > 12 || month < 1){
+                return false;
+            }
+            int day = Integer.parseInt(Date.substring(8,10));
+            if(day < 1 || day > 31){
+                return false;
+            }
+            if(month == 2 && day > 28){
+                return false;
+            }
+            if((month == 4 || month == 6 || month == 9 ||month == 11)
+                    && day == 31){
+                return false;
+            }
+        } catch(Exception e){
+            return false;
+        }
+        return true;
+    }
 }
