@@ -46,14 +46,14 @@ class TaskListTest {
         for (int i = 0; i < 4; i++) {
             tl.addTask(new TaskItem("h", "d", "2020-11-06"));
         }
-        tl.getItem(1).updateTask("Title", "Desc", "2020-07-21");
+        tl.updateTask(1,"Title", "Desc", "2020-07-21");
         assertEquals("[2020-07-21] Title: Desc", tl.getItem(1).toString());
     }
     @Test
     public void editingTaskItemDescriptionChangesValue(){
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("t", "d", "2020-02-28"));
-        tl.getItem(0).updateTask("t", "D", "2020-02-28");
+        tl.updateTask(0,"t", "D", "2020-02-28");
         assertEquals("D", tl.getItem(0).getDescription());
     }
 
@@ -62,7 +62,7 @@ class TaskListTest {
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("T", "D", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
-            tl.getItem(4).updateTask("Title", "Desc", "2020-11-06");
+            tl.updateTask(4,"Title", "Desc", "2020-11-06");
         });
     }
 
@@ -70,7 +70,7 @@ class TaskListTest {
     public void editingTaskItemDueDateChangesValue(){
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("T", "D", "2020-07-21"));
-        tl.getItem(0).updateTask("T","D","2020-08-31");
+        tl.updateTask(0,"T","D","2020-08-31");
         assertEquals("[2020-08-31] T: D",tl.getItem(0).toString());
     }
 
@@ -80,7 +80,7 @@ class TaskListTest {
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("t", "desc","2020-07-15"));
         assertThrows(IndexOutOfBoundsException.class, () ->{
-           tl.getItem(1).updateTask("title", "d", "2020-02-01");
+           tl.updateTask(1,"title", "d", "2020-02-01");
         });
     }
 
@@ -88,7 +88,7 @@ class TaskListTest {
     public void editingTaskItemTitleChangesValue(){
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("h", "d", "2020-11-06"));
-        tl.getItem(0).updateTask("Title","desc","2020-01-29");
+        tl.updateTask(0,"Title","desc","2020-01-29");
         assertEquals("[2020-01-29] Title: desc", tl.getItem(0).toString());
     }
 
@@ -97,7 +97,7 @@ class TaskListTest {
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("h", "d", "2020-11-06"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
-            tl.getItem(4).updateTask("Title","desc","2020-10-15");
+            tl.updateTask(4,"Title","desc","2020-10-15");
         });
     }
 

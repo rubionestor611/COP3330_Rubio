@@ -72,6 +72,9 @@ public class TaskList {
     public TaskItem getItem(int index) {
         return this.list.get(index);
     }
+    public void updateTask(int index, String title, String desc, String duedate){
+        getItem(index).updateTask(title,desc,duedate);
+    }
 
     public boolean isEmpty() {
         return this.list.isEmpty();

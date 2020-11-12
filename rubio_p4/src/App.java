@@ -237,7 +237,7 @@ public class App {
             }
             String[] newtaskinfo = getTaskInfoFromUser();
             if(isValidTaskInfo(newtaskinfo[0], newtaskinfo[2])){
-                tl.getItem(index).updateTask(newtaskinfo[0],newtaskinfo[1],newtaskinfo[2]);
+                tl.updateTask(index,newtaskinfo[0],newtaskinfo[1],newtaskinfo[2]);
                 System.out.println("Task updated");
             }
         }
