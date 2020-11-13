@@ -1,7 +1,4 @@
 
-import java.time.DateTimeException;
-import java.util.Scanner;
-
 public class TaskItem {
     private String title;
     private String description;
@@ -38,7 +35,6 @@ public class TaskItem {
     }
     @Override
     public String toString(){
-
         if(this.Complete){
             return ("[" + this.dueDate + "] " + "*** " +
                     this.title + ": " + this.description);

@@ -35,6 +35,7 @@ public class TaskList {
                 count++;
             }
         }
+        System.out.println("");
         return al;
     }
     public ArrayList<Integer> printUncompletedReturnIncompleteList() {
@@ -51,6 +52,7 @@ public class TaskList {
                 count++;
             }
         }
+        System.out.println("");
         return al;
     }
     public int indexof(TaskItem t){
