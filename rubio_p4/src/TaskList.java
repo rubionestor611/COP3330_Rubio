@@ -1,4 +1,9 @@
 import java.io.*;
+import java.nio.file.FileSystems;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.util.*;
 
 public class TaskList {
@@ -87,6 +92,9 @@ public class TaskList {
     }
 
     public void loadList(String filename) throws FileNotFoundException, Exception {
+        if(!filename.substring(filename.length() - 4).equals(".txt")){
+            filename +=".txt";
+        }
         try {
             File file = new File("src/" + filename);
             if(!file.exists()){
@@ -96,10 +104,13 @@ public class TaskList {
             while (s.hasNextLine()) {
                 String[] row = s.nextLine().split("::");
                 //title, description, date
-                this.list.add(new TaskItem(row[0], row[1], row[2]));
-                if(row.length == 4){
-                    this.list.get(this.list.size()-1).complete();
+                if(row[0].length() != 0 && isValidDate(row[2])){
+                    this.list.add(new TaskItem(row[0], row[1], row[2]));
+                    if(row.length == 4){
+                        this.list.get(this.list.size()-1).complete();
+                    }
                 }
+
             }
         } catch (FileNotFoundException fnf) {
             throw fnf;
@@ -140,7 +151,7 @@ public class TaskList {
         System.out.print("Enter the filename to save as: ");
         String filename = s.nextLine();
         try{
-            if(filename.substring(filename.length() - 4).equals(".txt")){
+            if(filename.length() >= 5 && filename.substring(filename.length() - 4).equals(".txt")){
                 this.writeToFile(filename);
                 return true;
             }else{
@@ -150,6 +161,17 @@ public class TaskList {
         }catch(Exception e){
             return false;
         }
+    }
+    private static boolean isValidDate(String Date) {
+        //ideal date in "YYYY/MM/DD" format
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        try {
+            df.parse(Date);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
 }
