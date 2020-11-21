@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContactItemTest {
     @Test
     public void creationFailsWithAllBlankValues(){
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InstantiationError.class, () -> {
             ContactItem c = new ContactItem("","","","");
         });
     }
