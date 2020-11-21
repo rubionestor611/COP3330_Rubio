@@ -15,14 +15,14 @@ class ContactListTest {
         ContactList c = new ContactList();
         c.addContact(new ContactItem("Nestor","Rubio","3216549870","nessssss@smail.ney"));
         assertThrows(IllegalArgumentException.class,() -> {
-            c.updateContact(0,"", "","");
+            c.updateContact(0,"","", "","");
         } );
     }
     @Test
     public void editingItemsFailsWithInvalidIndex(){
         ContactList c = new ContactList();
         c.addContact(new ContactItem("Nestor","Rubio","3216549870", "nessssss@smail.ney"));
-        assertThrows(IllegalArgumentException.class,() -> {
+        assertThrows(IndexOutOfBoundsException.class,() -> {
             c.updateContact(1,"Chris", "Last", "3216549870","cman@smail.ney");
         } );
     }
@@ -74,13 +74,15 @@ class ContactListTest {
         c.addContact(new ContactItem("Nestor","Rubio","3216549870","nessssss@smail.ney"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             c.removeContact(1);
-        })
+        });
     }
     @Test
     public void savedContactListCanBeLoaded(){
         ContactList c = new ContactList();
-        c.loadList("NestorSampleContactFile00.txt");
-        assertEquals(3,c.size());
+        assertDoesNotThrow(()->{
+            c.loadList("NestorSampleContactFile00.txt");
+            assertEquals(2,c.size());
+        });
     }
 
 }

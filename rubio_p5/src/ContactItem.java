@@ -15,7 +15,10 @@ public class ContactItem {
         this.email = email;
         this.phonenumber = phone;
     }
-    public void update(String firstname,String lastname, String phone, String email){
+    public void update(String firstname,String lastname, String phone, String email) throws IllegalArgumentException{
+        if(firstname.length()+lastname.length()+phone.length()+email.length() == 0){
+            throw new IllegalArgumentException();
+        }
         if(firstname.length() > 0){
             setFirstName(firstname);
         }
@@ -42,7 +45,7 @@ public class ContactItem {
         this.phonenumber = phonenumber;
     }
 
-    public String getFirstnameName() {
+    public String getFirstName() {
         return firstname;
     }
 
@@ -67,5 +70,9 @@ public class ContactItem {
     @Override
     public String toString(){
         return this.firstname + " " +this.lastname + ": " + this.phonenumber + ": " + this.email;
+    }
+    public String toWriteFormat(){
+        return this.firstname + "::" + this.lastname  + "::" + this.phonenumber
+                + "::" + this.email;
     }
 }
