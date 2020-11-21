@@ -6,6 +6,7 @@ public class ContactItem {
     private String lastname;
     private String phonenumber;
     private String email;
+
     public ContactItem(String firstname,String lastname, String phone, String email) throws IllegalArgumentException, InputMismatchException, InstantiationError {
         if(firstname.length()+lastname.length()+phone.length()+email.length() == 0){
             throw new InstantiationError();

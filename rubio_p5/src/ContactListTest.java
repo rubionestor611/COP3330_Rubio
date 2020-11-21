@@ -45,7 +45,7 @@ class ContactListTest {
         ContactList c = new ContactList();
         c.addContact(new ContactItem("Nestor","Rubio","3216549870", "nessssss@smail.ney"));
         c.updateContact(0,"First","Last", "", "nes55s@smail.ney");
-        assertEquals("3216549870", c.getContactLastName(0));
+        assertEquals("Last", c.getContactLastName(0));
     }
     @Test
     public void editingSucceedsWithNonBlankValues(){

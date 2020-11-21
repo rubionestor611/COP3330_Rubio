@@ -22,14 +22,16 @@ public class ContactList {
     public void addContact(ContactItem c){
         list.add(c);
     }
-    public void updateContact(int index, String first, String last, String phone, String email){
+    public void updateContact(int index, String first, String last, String phone, String email) {
         try{
             this.getContact(index).update(first,last, phone, email);
         }catch(IndexOutOfBoundsException i){
             System.out.println(index + " is not a valid index. No contacts updated.");
+            throw i;
         }catch(IllegalArgumentException e){
             System.out.println("WARNING: CANNOT UPDATE WITH ALL BLANK VALUES.\n" +
                                "TASK NOT UPDATED");
+            throw e;
         }
 
     }

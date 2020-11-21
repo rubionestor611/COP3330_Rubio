@@ -229,10 +229,10 @@ public class App {
     public static void removefromList(TaskList tl) throws IndexOutOfBoundsException {
         Scanner s = new Scanner(System.in);
         tl.printTaskList();
-        if (tl.Size() != 0) {
+        if (tl.size() != 0) {
             System.out.print("Please enter the index of the task you wish to delete: ");
             int index = s.nextInt();
-            if (index < 0 || index >= tl.Size()) {
+            if (index < 0 || index >= tl.size()) {
                 throw new IndexOutOfBoundsException();
             }
             tl.removeTask(index);
@@ -243,10 +243,10 @@ public class App {
     public static void updateTask(TaskList tl) throws IndexOutOfBoundsException, IllegalArgumentException, DateTimeException {
         Scanner s = new Scanner(System.in);
         tl.printTaskList();
-        if (tl.Size() != 0) {
+        if (tl.size() != 0) {
             System.out.print("Please enter the index of the task you wish to edit: ");
             int index = s.nextInt();
-            if (index < 0 || index >= tl.Size()) {
+            if (index < 0 || index >= tl.size()) {
                 throw new IndexOutOfBoundsException();
             }
             String[] newtaskinfo = getUpdatedTaskInfoFromUser(index);

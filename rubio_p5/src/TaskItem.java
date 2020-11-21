@@ -1,3 +1,7 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 
 public class TaskItem {
     private String title;
@@ -5,15 +9,25 @@ public class TaskItem {
     private String dueDate;
     private boolean Complete;
     public TaskItem(String title, String desc, String dueDate) {
+        if(title.length() == 0){
+            throw new IllegalArgumentException();
+        }else if(!isValidDate(dueDate)){
+            throw new DateTimeException("");
+        }
         this.title = title;
         this.description = desc;
         this.dueDate = dueDate;
         this.Complete = false;
     }
     public void updateTask(String title, String desc, String dueDate) {
-            this.setDueDate(dueDate);
-            this.setDescription(desc);
-            this.setTitle(title);
+        if(title.length() == 0){
+            throw new IllegalArgumentException();
+        }else if(!isValidDate(dueDate)){
+            throw new DateTimeException("");
+        }
+        this.setDueDate(dueDate);
+        this.setDescription(desc);
+        this.setTitle(title);
     }
     public void setTitle(String title){
         this.title = title;
@@ -60,5 +74,16 @@ public class TaskItem {
             ret += "::c";
         }
         return ret;
+    }
+    private static boolean isValidDate(String Date) {
+        //ideal date in "YYYY/MM/DD" format
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        try {
+            df.parse(Date);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 }

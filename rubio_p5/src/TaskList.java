@@ -16,10 +16,27 @@ public class TaskList {
         this.list.add(t);
     }
 
-    public int Size() {
+    public int size() {
         return this.list.size();
     }
-
+    public void completeTask(int index){
+        getItem(index).complete();
+    }
+    public void uncompleteTask(int index){
+        getItem(index).incomplete();
+    }
+    public String getTaskTitle(int index){
+        return getItem(index).getTitle();
+    }
+    public String getTaskDescription(int index){
+        return getItem(index).getDescription();
+    }
+    public String getTaskDueDate(int index){
+        return getItem(index).getDueDate();
+    }
+    public boolean isTaskComplete(int index){
+        return getItem(index).isComplete();
+    }
     public void printTaskList() {
         System.out.println("Current tasks\n" +
                 "_____________");
@@ -29,7 +46,7 @@ public class TaskList {
     public ArrayList<Integer> printCompletedReturnCompleteList() {
         int count = 0;
         ArrayList<Integer> al = new ArrayList<>();
-        int len = this.Size();
+        int len = this.size();
         System.out.println("Completed Tasks\n" +
                            "_____________");
         for (int i = 0; i < len; i++) {
@@ -46,7 +63,7 @@ public class TaskList {
     public ArrayList<Integer> printUncompletedReturnIncompleteList() {
         int count = 0;
         ArrayList<Integer> al = new ArrayList<>();
-        int len = this.Size();
+        int len = this.size();
         System.out.println("Uncompleted Tasks\n" +
                            "_____________");
         for (int i = 0; i < len; i++) {
@@ -137,7 +154,7 @@ public class TaskList {
     }
     private void writeText(PrintWriter pw) throws Exception{
         try{
-            int len = this.Size();
+            int len = this.size();
             for(int i = 0; i < len; i++){
                 pw.println(this.getItem(i).toWriteFormat());
             }
