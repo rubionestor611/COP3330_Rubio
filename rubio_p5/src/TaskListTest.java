@@ -9,21 +9,21 @@ class TaskListTest {
     public void addingItemsIncreasesSize(){
         TaskList tl =new TaskList();
         assertEquals(0,tl.size);
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertEquals(1,tl.size());
     }
     @Test
     public void completingTaskItemChangesStatus(){
         TaskList tl =new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
-        assertEquals("[07-21-2020] Title: Desc", tl.getItem(0).toString());
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
+        assertEquals("[2020-07-21] Title: Desc", tl.getItem(0).toString());
         tl.completeTask(0);
         assertEquals(true, tl.isTaskComplete(0));
     }
     @Test
     public void completingTaskItemFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             tl.completeTask(1);
         });
@@ -31,17 +31,17 @@ class TaskListTest {
     @Test
     public void editingItemDescriptionFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
-            tl.updateTask(1, "T", "", "07-25-2021");
+            tl.updateTask(1, "T", "", "2021-07-05");
         });
     }
     @Test
     public void editingItemDescriptionSucceedsWithExpectedValue(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertEquals("Desc", tl.getItem(0).getDescription());
-        tl.updateTask(0, "Title", "Description", "07-21-2020");
+        tl.updateTask(0, "Title", "Description", "2020-07-21");
         assertEquals("Description", tl.getItem(0).getDescription());
     }
     @Test
@@ -49,37 +49,37 @@ class TaskListTest {
         TaskList tl = new TaskList();
         tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
         assertEquals("07-21-2020", tl.getItem(0).getDueDate());
-        tl.updateTask(0, "Title", "Description", "02-17-2019");
-        assertEquals("02-17-2019", tl.getItem(0).getDueDate());
+        tl.updateTask(0, "Title", "Description", "2019-02-17");
+        assertEquals("2019-02-17", tl.getItem(0).getDueDate());
     }
     @Test
     public void editingItemTitleFailsWithEmptyString(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IllegalArgumentException.class, () -> {
-            tl.updateTask(0,"", "", "07-21-2020");
+            tl.updateTask(0,"", "", "2020-07-21");
         });
     }
     @Test
     public void editingItemTitleFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
-            tl.updateTask(1,"T", "", "07-21-2020");
+            tl.updateTask(1,"T", "", "2020-07-24");
         });
     }
     @Test
     public void editingItemTitleSucceedsWithExpectedValue(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertEquals("Title", tl.getItem(0).getTitle());
-        tl.updateTask(0, "UpdatedTitle", "Description", "02-17-2019");
+        tl.updateTask(0, "UpdatedTitle", "Description", "2019-02-17");
         assertEquals("UpdatedTitle", tl.getItem(0).getTitle());
     }
     @Test
     public void editingTaskItemDueDateFailsWithInvalidDateFormat(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(DateTimeException.class, () -> {
             tl.updateTask(0,"T", "", "02172020");
         });
@@ -87,7 +87,7 @@ class TaskListTest {
     @Test
     public void editingTaskItemDueDateFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             tl.updateTask(1,"Title", "", "");
         });
@@ -95,15 +95,15 @@ class TaskListTest {
     @Test
     public void editingTaskItemDueDateFailsWithInvalidYYYMMDD(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(DateTimeException.class, () -> {
-            tl.updateTask(0,"T", "", "02-30-2020");
+            tl.updateTask(0,"T", "", "2020-02-30");
         });
     }
     @Test
     public void gettingItemDescriptionFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             tl.getItemDescription(1);
         });
@@ -111,13 +111,13 @@ class TaskListTest {
     @Test
     public void gettingItemDescriptionSucceedsWithValidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("String", "Success", "02-09-2025"));
+        tl.addTask(new TaskItem("String", "Success", "2025-02-09"));
         assertEquals("Success", tl.getItemDescription(0));
     }
     @Test
     public void gettingItemDueDateFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             tl.getItemDueDate(1);
         });
@@ -125,13 +125,13 @@ class TaskListTest {
     @Test
     public void gettingItemDueDateSucceedsWithValidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("String", "Success", "02-09-2025"));
-        assertEquals("02-09-2025", tl.getItemDueDate(0));
+        tl.addTask(new TaskItem("String", "Success", "2025-02-09"));
+        assertEquals("2025-02-09", tl.getItemDueDate(0));
     }
     @Test
     public void gettingItemTitleFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-210"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             tl.getItemTitle(1);
         });
@@ -139,7 +139,7 @@ class TaskListTest {
     @Test
     public void gettingItemTitleSucceedsWithValidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("String", "Success", "02-09-2025"));
+        tl.addTask(new TaskItem("String", "Success", "2020-07-21"));
         assertEquals("String", tl.getItemTitle(0));
     }
     @Test
@@ -150,8 +150,8 @@ class TaskListTest {
     @Test
     public void removingItemsDecreasesSize(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("String", "Success", "02-09-2025"));
-        tl.addTask(new TaskItem("String1", "Success1", "02-10-2025"));
+        tl.addTask(new TaskItem("String", "Success", "2025-02-09"));
+        tl.addTask(new TaskItem("String1", "Success1", "2025-02-10"));
         assertEquals(2, tl.Size());
         tl.removeTask(1);
         assertEquals(1, tl.Size());
@@ -159,7 +159,7 @@ class TaskListTest {
     @Test
     public void removingItemsFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         assertThrows(IndexOutOfBoundsException.class, () -> {
             tl.removeTask(1);
         });
@@ -173,7 +173,7 @@ class TaskListTest {
     @Test
     public void uncompletingTaskItemChangesStatus(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         tl.completeItem(0);
         assertEquals(true, tl.isItemComplete(0));
         tl.uncompleteItem(0);
@@ -182,7 +182,7 @@ class TaskListTest {
     @Test
     public void uncompletingTaskItemFailsWithInvalidIndex(){
         TaskList tl = new TaskList();
-        tl.addTask(new TaskItem("Title", "Desc", "07-21-2020"));
+        tl.addTask(new TaskItem("Title", "Desc", "2020-07-21"));
         tl.completeItem(0);
         assertEquals(true, tl.isItemComplete(0));
         assertThrows(IndexOutOfBoundsException.class, () -> {
