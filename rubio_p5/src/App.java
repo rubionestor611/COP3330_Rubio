@@ -18,10 +18,13 @@ public class App {
         while(choice != 3){
             if(choice == 1){
                 t.run();
-            }else{
+            }
+            if(choice == 2){
                 c.run();
             }
-            choice = getUserChoice(1,3);
+            if(choice != 3){
+                choice = getUserChoice(1,3);
+            }
         }
         System.out.println("Thanks for using the app!");
     }
@@ -34,14 +37,19 @@ public class App {
     }
     private static int getUserChoice(int low, int high){
         printMainMenu();
-        System.out.print("> ");
-        int choice;
-        try{
-            choice = scanner.nextInt();
-            scanner.nextLine();
-            return choice;
-        }catch(Exception e){
-            return getUserChoice(low,high);
+        int ret = -1;
+        scanner = new Scanner(System.in);
+        try {
+            while (ret < low || ret > high) {
+                System.out.print("Please enter a valid number between " + low +
+                        " and " + high + ": ");
+                ret = scanner.nextInt();
+            }
+        } catch (Exception e) {
+            System.out.println("Your input needs to be a valid " +
+                    "integer between " + low + " and " + high + "\n");
+            ret = getUserChoice(low, high);
         }
+        return ret;
     }
 }

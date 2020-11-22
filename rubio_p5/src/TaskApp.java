@@ -46,7 +46,6 @@ public class TaskApp {
             printMainMenu();
             input = getInput(1, 3);
         }
-        System.out.println("Goodbye, thank you for using Nestor's To-Do list app.");
     }
 
     public static void listOperationMenu(TaskList tl) throws Exception {

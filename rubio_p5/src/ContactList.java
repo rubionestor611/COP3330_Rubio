@@ -8,7 +8,16 @@ import java.util.Scanner;
 public class ContactList {
     private ArrayList<ContactItem> list = new ArrayList<>();
     public ContactList(){
-
+    }
+    public void printlist(){
+        System.out.println("Current Contacts\n" +
+                           "_____________\n");
+        int len = size();
+        for(int i = 0; i < len; i++){
+            System.out.println(i + ") Name: " + getContact(i).getFirstName() + " " + getContact(i).getLastName() + "\n" +
+                                "Phone: " + getContact(i).getPhonenumber() + "\n" +
+                                "Email: " + getContact(i).getEmail());
+        }
     }
     public int size(){
         return list.size();
