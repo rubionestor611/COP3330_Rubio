@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
 import java.util.Scanner;
 
 public class ContactApp {
@@ -11,11 +12,12 @@ public class ContactApp {
     }
     public void mainMenu(){
         printMainMenu();
-        ContactList cl = new ContactList();
+        ContactList cl;
         int choice = getIntfromUser(1,3);
         while(choice != 3){
             if(choice == 1){
                 try{
+                    cl = new ContactList();
                     System.out.println("New contact list created");
                     listOperationsMenu(cl);
                 }catch(Exception e) {
@@ -23,6 +25,7 @@ public class ContactApp {
                 }
             }
             if(choice == 2){
+                cl = new ContactList();
                 String filename = getFileNameFromUser();
                 try{
                     cl.loadList(filename);
@@ -35,6 +38,10 @@ public class ContactApp {
                     System.out.println("Problem in the list Operations Menu");
                 }
             }
+            if(choice != 3){
+                printMainMenu();
+                choice = getIntfromUser(1,3);
+            }
         }
     }
 
@@ -44,7 +51,7 @@ public class ContactApp {
             if(choice == 1){
                 cl.printlist();
             }else if(choice == 2){
-                System.out.println("add an item");
+                addtoContactList(cl);
             }else if(choice == 3){
                 System.out.println("edit an item");
             }else if(choice == 4){
@@ -103,5 +110,39 @@ public class ContactApp {
         System.out.println("1) create a new list");
         System.out.println("2) load an existing list");
         System.out.println("3) quit");
+    }
+    public void addtoContactList(ContactList cl){
+        try{
+            String[] contactinfo = getContactInfoFromUser();
+            ContactItem contacttoadd = new ContactItem(contactinfo[0],contactinfo[1],contactinfo[2],contactinfo[3]);
+            cl.addContact(contacttoadd);
+        }catch(InstantiationError i){
+            System.out.println("All values cannot be blank at least one contact field must have content.");
+        }catch(Exception e){
+            System.out.println("Returning to List Operations Menu.\n");
+        }/*catch(IllegalArgumentException i){
+
+        }catch(DateTimeException d){
+
+        }catch(InstantiationError i){
+
+        }*/
+    }
+    public String[] getContactInfoFromUser(){
+        String[] ret = new String[4];
+        System.out.print("Please enter the contact's first name: ");
+        scanner.nextLine();
+        ret[0] = scanner.nextLine();
+        scanner.reset();
+        System.out.print("Please enter the contact's last name: ");
+        ret[1] = scanner.nextLine();
+        scanner.reset();
+        System.out.print("Please enter the contact's phone number: ");
+        ret[2] = scanner.nextLine();
+        scanner.reset();
+        System.out.print("Please enter the contact's email address: ");
+        ret[3] = scanner.nextLine();
+        scanner.reset();
+        return ret;
     }
 }

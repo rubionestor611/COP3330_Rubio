@@ -13,7 +13,12 @@ public class ContactItem {
         }
         this.firstname = firstname;
         this.lastname = lastname;
-        this.email = email;
+        if(isValidEmail(email)){
+            this.email = email;
+        }else if(email.length() != 0){
+            System.out.println(email + " cannot be assigned to " + getFullName() + "'s contact.\nIt is not in valid email address format");
+            this.email = "";
+        }
         this.phonenumber = phone;
     }
     public void update(String firstname,String lastname, String phone, String email) throws IllegalArgumentException{
@@ -59,6 +64,17 @@ public class ContactItem {
 
     public void setLastName(String lastname) {
         this.lastname = lastname;
+    }
+    public String getFullName(){
+        if(firstname.length() == 0 && lastname.length() == 0){
+            return "";
+        }else if(firstname.length() == 0){
+            return lastname;
+        }else if(lastname.length() == 0){
+            return firstname;
+        }else{
+            return firstname + " " + lastname;
+        }
     }
 
     public String getEmail() {

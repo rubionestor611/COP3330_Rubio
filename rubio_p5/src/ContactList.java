@@ -14,7 +14,7 @@ public class ContactList {
                            "_____________\n");
         int len = size();
         for(int i = 0; i < len; i++){
-            System.out.println(i + ") Name: " + getContact(i).getFirstName() + " " + getContact(i).getLastName() + "\n" +
+            System.out.println(i + ") Name: " + getContact(i).getFullName() + "\n" +
                                 "Phone: " + getContact(i).getPhonenumber() + "\n" +
                                 "Email: " + getContact(i).getEmail());
         }
