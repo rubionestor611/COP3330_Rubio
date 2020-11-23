@@ -20,8 +20,13 @@ public class ContactItem {
         }else{
             this.email = "";
         }
-        this.phonenumber = phone;
-
+        if(isValidPhoneNumber(phone)){
+            this.phonenumber = phone;
+        }else if(phone.length() != 0){
+            this.phonenumber = "";
+        }else{
+            this.phonenumber = "";
+        }
     }
     public void update(String firstname,String lastname, String phone, String email) throws IllegalArgumentException{
         if(firstname.length()+lastname.length()+phone.length()+email.length() == 0){
@@ -33,19 +38,44 @@ public class ContactItem {
         if(lastname.length() > 0){
             setLastName(lastname);
         }
-        if(phonenumber.length() > 0){
+        if(isValidPhoneNumber(phone)){
             this.setPhonenumber(phone);
+        }else{
+            System.out.print(phone + " is not a valid phone number in xxx-xxx-xxxx format.\nPhone number will not be updated, it is still ");
+            if(this.phonenumber.equals("")){
+                System.out.println("an empty field.");
+            }else{
+                System.out.println(this.phonenumber + ".");
+            }
         }
         if(isValidEmail(email)){
             this.setEmail(email);
-        }else{
+        }else if(email.length() != 0){
             System.out.println(email + " is not in valid email format (a@b.c).\nEmail will not be updated so it will remain " + this.email + ".");
         }
     }
     private static boolean isValidEmail(String email){
-        Pattern p = Pattern.compile("^(.+)@(.+)$");
+        Pattern p = Pattern.compile("^(.+)@(.+).(.+)$");
         Matcher m = p.matcher(email);
         return m.matches();
+    }
+    private static boolean isValidPhoneNumber(String phone){
+        //0123456789 10 11
+        //xxx-xxx-xx x  x
+        if(phone.length() == 12 && (phone.charAt(3) == '-' && phone.charAt(7) == '-')){
+            try{
+                int temp;
+                for(int i = 0; i < 12; i++){
+                    if(i != 3 && i != 7){
+                        temp = Integer.parseInt(phone.substring(i, i+1));
+                    }
+                }
+            }catch(Exception e){
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
     public String getPhonenumber() {
         return phonenumber;
