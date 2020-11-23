@@ -35,6 +35,8 @@ public class ContactApp {
                 }catch(FileNotFoundException f){
                     System.out.println(filename + " does not exist");
                 }catch(Exception e){
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                     System.out.println("Problem in the list Operations Menu");
                 }
             }
@@ -53,16 +55,96 @@ public class ContactApp {
             }else if(choice == 2){
                 addtoContactList(cl);
             }else if(choice == 3){
-                System.out.println("edit an item");
+                editContactinList(cl);
             }else if(choice == 4){
-                System.out.println("remove an item");
+                removeContactfromList(cl);
             }else if(choice == 5){
-                System.out.println("save current list");
+                saveContactList(cl);
             }
             if(choice != 6){
                 choice = getListOperationChoice();
             }
         }
+    }
+
+    private void saveContactList(ContactList cl) {
+        System.out.print("Enter the name you wish to save this contact list under: ");
+        scanner.nextLine();
+        String filename = scanner.nextLine();
+        try{
+            if(cl.savetoFile(filename)){
+                System.out.println("List saved successfully");
+            }else{
+                throw new Exception();
+            }
+        }catch(Exception e){
+            System.out.println("Problem saving list.");
+        }
+    }
+
+    private void removeContactfromList(ContactList cl) {
+        if(cl.size() == 0){
+            return;
+        }
+        int chosenindex = 0;
+        scanner.nextLine();
+        cl.printlist();
+        System.out.print("Please enter the index of the contact you wish to delete: ");
+        try{
+            chosenindex = scanner.nextInt();
+            if(chosenindex < 0 || chosenindex >= cl.size()){
+                throw new IndexOutOfBoundsException();
+            }
+            cl.removeContact(chosenindex);
+            System.out.println("Contact " + chosenindex + " removed.");
+        }catch(IndexOutOfBoundsException ind){
+            System.out.println(chosenindex + " is not a valid index. No contacts removed.");
+        }catch(Exception e){
+            System.out.println("Please provide a valid integer indicating the contact to remove. No contact deleted.");
+        }
+    }
+
+    private void editContactinList(ContactList cl) {
+        if(cl.size() == 0){
+            return;
+        }
+        int chosenindex = 0;
+        scanner.nextLine();
+        cl.printlist();
+        System.out.print("Please enter the index of the contact you wish to update: ");
+        try{
+            chosenindex = scanner.nextInt();
+            if(chosenindex < 0 || chosenindex >= cl.size()){
+                throw new IndexOutOfBoundsException();
+            }
+            String[] newcontactinfo = getUpdatedContactInfofromUser(chosenindex);
+            cl.updateContact(chosenindex, newcontactinfo[0],newcontactinfo[1],newcontactinfo[2],newcontactinfo[3]);
+            System.out.println("Contact for " + cl.getContactFullName(chosenindex) + " updated.");
+        }catch(IndexOutOfBoundsException ind){
+            System.out.println(chosenindex + " is not a valid index. No contacts updated.");
+        }catch(IllegalArgumentException i){
+            System.out.println("All blank values is not valid info for the contact.\nContact " + chosenindex + " will not be updated.");
+        }catch(Exception e){
+            System.out.println("Please provide a valid integer to update it. No contact updated.");
+        }
+    }
+
+    private String[] getUpdatedContactInfofromUser(int index) {
+        String[] ret = new String[4];
+        System.out.print("Please enter a new first name for contact " + index + ": ");
+        scanner.nextLine();
+        ret[0] = scanner.nextLine();
+        scanner.reset();
+        System.out.print("Please enter a new last name for contact " + index + ": ");
+        ret[1] = scanner.nextLine();
+        scanner.reset();
+        System.out.print("Please enter a new phone number for contact " + index + ": ");
+        ret[2] = scanner.nextLine();
+        scanner.reset();
+        System.out.print("Please enter a new email address for contact " + index + ": ");
+        ret[3] = scanner.nextLine();
+        scanner.reset();
+        return ret;
     }
 
     private int getIntfromUser(int low, int high) {
@@ -87,7 +169,7 @@ public class ContactApp {
     }
 
     private static void printListOperationsMenu(){
-        System.out.println("List Operation Menu\n" +
+        System.out.println("\nList Operation Menu\n" +
                 "---------\n" +
                 "\n" +
                 "1) view the list\n" +
@@ -98,9 +180,9 @@ public class ContactApp {
                 "6) quit to the main menu");
     }
     private String getFileNameFromUser() {
-        System.out.println("Enter the name of the file you're list is saved in: ");
-        String ret = scanner.nextLine();
+        System.out.print("Enter the name of the file your list is saved in: ");
         scanner.nextLine();
+        String ret = scanner.nextLine();
         return ret;
     }
 
@@ -137,10 +219,10 @@ public class ContactApp {
         System.out.print("Please enter the contact's last name: ");
         ret[1] = scanner.nextLine();
         scanner.reset();
-        System.out.print("Please enter the contact's phone number: ");
+        System.out.print("Please enter the contact's phone number(xxx-xxx-xxx): ");
         ret[2] = scanner.nextLine();
         scanner.reset();
-        System.out.print("Please enter the contact's email address: ");
+        System.out.print("Please enter the contact's email address (x@y.z): ");
         ret[3] = scanner.nextLine();
         scanner.reset();
         return ret;

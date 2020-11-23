@@ -18,6 +18,7 @@ public class ContactList {
                                 "Phone: " + getContact(i).getPhonenumber() + "\n" +
                                 "Email: " + getContact(i).getEmail());
         }
+        System.out.print("\n");
     }
     public int size(){
         return list.size();
@@ -50,6 +51,9 @@ public class ContactList {
     public String getContactLastName(int index){
         return this.getContact(index).getLastName();
     }
+    public String getContactFullName(int index){
+        return getContact(index).getFullName();
+    }
     public String getContactPhoneNumber(int index){
         return this.getContact(index).getPhonenumber();
     }
@@ -63,8 +67,8 @@ public class ContactList {
         return getContact(index).toString();
     }
     public void loadList(String filename) throws FileNotFoundException, Exception {
-        if(!filename.substring(filename.length() - 4).equals(".txt")){
-            filename +=".txt";
+        if(filename.length() >= 4 && !filename.substring(filename.length() - 4).equals(".txt")){
+            filename += ".txt";
         }
         try {
             File file = new File("src/" + filename);
@@ -119,10 +123,7 @@ public class ContactList {
             throw new Exception("append failed");
         }
     }
-    public boolean savetoFile() throws Exception {
-        Scanner s = new Scanner(System.in);
-        System.out.print("Enter the filename to save as: ");
-        String filename = s.nextLine();
+    public boolean savetoFile(String filename) throws Exception {
         try{
             if(filename.length() >= 5 && filename.substring(filename.length() - 4).equals(".txt")){
                 this.writeToFile(filename);

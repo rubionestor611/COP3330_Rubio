@@ -16,10 +16,12 @@ public class ContactItem {
         if(isValidEmail(email)){
             this.email = email;
         }else if(email.length() != 0){
-            System.out.println(email + " cannot be assigned to " + getFullName() + "'s contact.\nIt is not in valid email address format");
+            this.email = "";
+        }else{
             this.email = "";
         }
         this.phonenumber = phone;
+
     }
     public void update(String firstname,String lastname, String phone, String email) throws IllegalArgumentException{
         if(firstname.length()+lastname.length()+phone.length()+email.length() == 0){
@@ -35,7 +37,9 @@ public class ContactItem {
             this.setPhonenumber(phone);
         }
         if(isValidEmail(email)){
-            this.email = email;
+            this.setEmail(email);
+        }else{
+            System.out.println(email + " is not in valid email format (a@b.c).\nEmail will not be updated so it will remain " + this.email + ".");
         }
     }
     private static boolean isValidEmail(String email){
@@ -89,7 +93,27 @@ public class ContactItem {
         return this.firstname + " " +this.lastname + ": " + this.phonenumber + ": " + this.email;
     }
     public String toWriteFormat(){
-        return this.firstname + "::" + this.lastname  + "::" + this.phonenumber
-                + "::" + this.email;
+        String ret = "";
+        if(this.firstname.length() != 0){
+            ret += this.firstname + "::";
+        }else{
+            ret += " ::";
+        }
+        if(this.lastname.length() != 0){
+            ret += this.lastname + "::";
+        }else{
+            ret += " ::";
+        }
+        if(this.phonenumber.length() != 0){
+            ret += this.phonenumber + "::";
+        }else{
+            ret += " ::";
+        }
+        if(this.email.length() != 0){
+            ret += this.firstname + "::";
+        }else{
+            ret += " ::";
+        }
+        return ret;
     }
 }

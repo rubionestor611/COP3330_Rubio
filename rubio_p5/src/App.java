@@ -29,8 +29,8 @@ public class App {
         System.out.println("Thanks for using the app!");
     }
     private static void printMainMenu(){
-        System.out.println("Main Menu\n" +
-                "_________");
+        System.out.println("Select Your Application\n" +
+                           "_______________________");
         System.out.println("1) task list\n" +
                 "2) contact list\n" +
                 "3) quit");
