@@ -70,14 +70,18 @@ public class TaskApp {
                 try {
                     updateTask(tl);
                 } catch (IndexOutOfBoundsException iob) {
+                    scan.nextLine();
                     System.out.println("Not a valid index for a task on the list.");
                 } catch (IllegalArgumentException ill) {
+                    scan.nextLine();
                     System.out.println("Title needs to be at least one character in length.\n" +
                             "Task not updated.");
                 } catch (DateTimeException d) {
+                    scan.nextLine();
                     System.out.println("Due date needs to be a real date in a valid YYYY-MM-DD format.\n" +
                             "Task not updated.");
                 } catch (Exception e) {
+                    scan.nextLine();
                     System.out.println("Need a valid integer as index of your list to edit a task.");
                 }
             }
@@ -254,11 +258,11 @@ public class TaskApp {
                 tl.removeTask(index);
                 System.out.println("Task removed");
             }catch(IndexOutOfBoundsException i){
+                scan.nextLine();
                 System.out.println("Index out of bounds. Please provide an integer within range of list shown.");
-                scan.reset();
             }catch(Exception e){
+                scan.nextLine();
                 System.out.println("Only valid integers accepted.");
-                scan.reset();
             }
 
         }
