@@ -198,6 +198,7 @@ public class ContactApp {
             String[] contactinfo = getContactInfoFromUser();
             ContactItem contacttoadd = new ContactItem(contactinfo[0],contactinfo[1],contactinfo[2],contactinfo[3]);
             cl.addContact(contacttoadd);
+            System.out.println("Contact for " + cl.getContactFullName(cl.size() - 1) + " added.");
         }catch(InstantiationError i){
             System.out.println("All values cannot be blank at least one contact field must have content.");
         }catch(Exception e){

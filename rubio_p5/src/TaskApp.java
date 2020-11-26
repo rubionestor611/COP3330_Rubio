@@ -32,7 +32,8 @@ public class TaskApp {
                 //load existing tasklist
                 try {
                     tl = new TaskList();
-                    tl.loadList(getFileName());
+                    String filename = getFileName();
+                    tl.loadList(filename);
                     System.out.println("task list has been loaded");
                     listOperationMenu(tl);
                 } catch (FileNotFoundException e) {
@@ -84,16 +85,21 @@ public class TaskApp {
                 try {
                     removefromList(tl);
                 } catch (IndexOutOfBoundsException iob) {
+                    scan.nextLine();
                     System.out.println("Not a valid index for a task on the list.");
+                }catch(Exception e){
+                    scan.nextLine();
+                    System.out.println("Only valid integers accepted.\n");
                 }
             }
             if (input == 5) {
                 try {
                     markAsComplete(tl);
                 } catch (IndexOutOfBoundsException i) {
+                    scan.nextLine();
                     System.out.println("Not a valid index for a task on the list.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    scan.nextLine();
                     System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
                 }
             }
@@ -102,14 +108,14 @@ public class TaskApp {
                 try {
                     unmarkAsComplete(tl);
                 } catch (IndexOutOfBoundsException i) {
+                    scan.nextLine();
                     System.out.println("Not a valid index for a task on the list.");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    scan.nextLine();
                     System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
                 }
             }
             if (input == 7) {
-
                 if (tl.savetoFile(getNameofFiletoSaveList())) {
                     System.out.println("Task list has been saved.\n");
                 } else {
@@ -147,6 +153,7 @@ public class TaskApp {
                 scan.nextLine();
             }
         } catch (Exception e) {
+            scan.nextLine();
             System.out.println("Your input needs to be a valid " +
                     "integer between " + low + " and " + high);
             ret = getInput(low, high);
@@ -157,13 +164,13 @@ public class TaskApp {
     private String getNameofFiletoSaveList(){
         System.out.print("Enter the name of the file you want this list saved under: ");
         String ret = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         return ret;
     }
     private String getFileName() {
-        System.out.print("Enter the file name to add: ");
+        System.out.print("Enter the file name to load list from: ");
         String ret = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         return ret;
     }
 
@@ -193,13 +200,13 @@ public class TaskApp {
         String[] ret = new String[3];
         System.out.print("Task Title: ");
         ret[0] = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         System.out.print("Task Description: ");
         ret[1] = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         System.out.print("Task Due Date (YYYY-MM-DD): ");
         ret[2] = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         return ret;
     }
 
@@ -208,7 +215,7 @@ public class TaskApp {
         if (al.size() != 0) {
             System.out.print("Enter the index of the task you wish to mark as incomplete: ");
             int index = scan.nextInt();
-            scan.nextLine();
+            scan.reset();
             if (index < 0 || index > al.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -223,7 +230,7 @@ public class TaskApp {
         if (al.size() != 0) {
             System.out.print("Enter the index of the task you wish to mark as complete: ");
             int index = scan.nextInt();
-            scan.nextLine();
+            scan.reset();
             if (index < 0 || index > al.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -237,14 +244,23 @@ public class TaskApp {
     private void removefromList(TaskList tl) throws IndexOutOfBoundsException {
         tl.printList();
         if (tl.size() != 0) {
-            System.out.print("Please enter the index of the task you wish to delete: ");
-            int index = scan.nextInt();
-            scan.nextLine();
-            if (index < 0 || index >= tl.size()) {
-                throw new IndexOutOfBoundsException();
+            try{
+                System.out.print("Please enter the index of the task you wish to delete: ");
+                int index = scan.nextInt();
+                scan.reset();
+                if (index < 0 || index >= tl.size()) {
+                    throw new IndexOutOfBoundsException();
+                }
+                tl.removeTask(index);
+                System.out.println("Task removed");
+            }catch(IndexOutOfBoundsException i){
+                System.out.println("Index out of bounds. Please provide an integer within range of list shown.");
+                scan.reset();
+            }catch(Exception e){
+                System.out.println("Only valid integers accepted.");
+                scan.reset();
             }
-            tl.removeTask(index);
-            System.out.println("Task removed");
+
         }
     }
 
@@ -253,7 +269,7 @@ public class TaskApp {
         if (tl.size() != 0) {
             System.out.print("Please enter the index of the task you wish to edit: ");
             int index = scan.nextInt();
-            scan.nextLine();
+            scan.reset();
             if (index < 0 || index >= tl.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -288,15 +304,17 @@ public class TaskApp {
     }
     private String[] getUpdatedTaskInfoFromUser(int tasknumber){
         String[] ret = new String[3];
+        scan.nextLine();
         System.out.print("Enter the new title for task " + tasknumber + ": ");
         ret[0] = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         System.out.print("Enter the new task description for task " + tasknumber + ": ");
         ret[1] = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
         System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + tasknumber +": ");
         ret[2] = scan.nextLine();
-        scan.nextLine();
+        scan.reset();
+
         return ret;
     }
 }

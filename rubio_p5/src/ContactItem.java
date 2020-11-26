@@ -17,6 +17,7 @@ public class ContactItem extends TypeItem{
             this.email = email;
         }else if(email.length() != 0){
             this.email = "";
+            System.out.println("Email portion for "+ this.getFullName() + " will be left blank. Email not in correct format.");
         }else{
             this.email = "";
         }
@@ -24,6 +25,7 @@ public class ContactItem extends TypeItem{
             this.phonenumber = phone;
         }else if(phone.length() != 0){
             this.phonenumber = "";
+            System.out.println("Phone section for " + this.getFullName() + " will be left blank. Invalid phone format.");
         }else{
             this.phonenumber = "";
         }
