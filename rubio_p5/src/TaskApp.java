@@ -7,18 +7,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskApp {
-    private ArrayList<TaskList> tasklist = new ArrayList<>();
-
+    private Scanner scan = new Scanner(System.in);
     public void run(){
         main(new String[1]);
     }
-    public static void main(String[] args) {
-        MainMenu();
+    public void main(String[] args) {
+        this.MainMenu();
     }
-    public static void MainMenu() {
+    private void MainMenu() {
         printMainMenu();
         TaskList tl;
-        int input = getInput(1, 3);
+        int input = this.getInput(1, 3);
         while (input != 3) {
             if (input == 1) {
                 tl = new TaskList();
@@ -48,12 +47,12 @@ public class TaskApp {
         }
     }
 
-    public static void listOperationMenu(TaskList tl) throws Exception {
+    private void listOperationMenu(TaskList tl) throws Exception {
         printListOperationMenu();
         int input = getInput(1, 8);
         while (input != 8) {
             if (input == 1) {
-                tl.printTaskList();
+                tl.printList();
             }
             if (input == 2) {
                 try {
@@ -110,7 +109,8 @@ public class TaskApp {
                 }
             }
             if (input == 7) {
-                if (tl.savetoFile()) {
+
+                if (tl.savetoFile(getNameofFiletoSaveList())) {
                     System.out.println("Task list has been saved.\n");
                 } else {
                     System.out.println("Problem saving the tasklist.\n");
@@ -137,14 +137,14 @@ public class TaskApp {
                 "8) quit to the main menu\n");
     }
 
-    public static int getInput(int low, int high) {
-        Scanner scan = new Scanner(System.in);
+    private int getInput(int low, int high) {
         int ret = -1;
         try {
             while (ret < low || ret > high) {
                 System.out.print("Please enter a valid number between " + low +
                         " and " + high + ": ");
                 ret = scan.nextInt();
+                scan.nextLine();
             }
         } catch (Exception e) {
             System.out.println("Your input needs to be a valid " +
@@ -154,11 +154,16 @@ public class TaskApp {
         return ret;
 
     }
-
-    public static String getFileName() {
-        Scanner s = new Scanner(System.in);
+    private String getNameofFiletoSaveList(){
+        System.out.print("Enter the name of the file you want this list saved under: ");
+        String ret = scan.nextLine();
+        scan.nextLine();
+        return ret;
+    }
+    private String getFileName() {
         System.out.print("Enter the file name to add: ");
-        String ret = s.next();
+        String ret = scan.nextLine();
+        scan.nextLine();
         return ret;
     }
 
@@ -170,7 +175,7 @@ public class TaskApp {
         System.out.println("3) quit");
     }
 
-    public static boolean addtoTaskList(TaskList tl) throws IllegalArgumentException, DateTimeException {
+    private boolean addtoTaskList(TaskList tl) throws IllegalArgumentException, DateTimeException {
         String[] taskInfo = getTaskInfoFromUser();
 
         if (taskInfo[0].length() == 0) {
@@ -184,24 +189,26 @@ public class TaskApp {
         return true;
     }
 
-    public static String[] getTaskInfoFromUser() {
-        Scanner s = new Scanner(System.in);
+    private String[] getTaskInfoFromUser() {
         String[] ret = new String[3];
         System.out.print("Task Title: ");
-        ret[0] = s.nextLine();
+        ret[0] = scan.nextLine();
+        scan.nextLine();
         System.out.print("Task Description: ");
-        ret[1] = s.nextLine();
+        ret[1] = scan.nextLine();
+        scan.nextLine();
         System.out.print("Task Due Date (YYYY-MM-DD): ");
-        ret[2] = s.nextLine();
+        ret[2] = scan.nextLine();
+        scan.nextLine();
         return ret;
     }
 
-    public static void unmarkAsComplete(TaskList tl) throws IndexOutOfBoundsException {
+    private void unmarkAsComplete(TaskList tl) throws IndexOutOfBoundsException {
         ArrayList<Integer> al = tl.printCompletedReturnCompleteList();
         if (al.size() != 0) {
             System.out.print("Enter the index of the task you wish to mark as incomplete: ");
-            Scanner s = new Scanner(System.in);
-            int index = s.nextInt();
+            int index = scan.nextInt();
+            scan.nextLine();
             if (index < 0 || index > al.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -211,12 +218,12 @@ public class TaskApp {
         }
     }
 
-    public static void markAsComplete(TaskList tl) throws IndexOutOfBoundsException {
+    private void markAsComplete(TaskList tl) throws IndexOutOfBoundsException {
         ArrayList<Integer> al = tl.printUncompletedReturnIncompleteList();
         if (al.size() != 0) {
             System.out.print("Enter the index of the task you wish to mark as complete: ");
-            Scanner s = new Scanner(System.in);
-            int index = s.nextInt();
+            int index = scan.nextInt();
+            scan.nextLine();
             if (index < 0 || index > al.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -227,12 +234,12 @@ public class TaskApp {
 
     }
 
-    public static void removefromList(TaskList tl) throws IndexOutOfBoundsException {
-        Scanner s = new Scanner(System.in);
-        tl.printTaskList();
+    private void removefromList(TaskList tl) throws IndexOutOfBoundsException {
+        tl.printList();
         if (tl.size() != 0) {
             System.out.print("Please enter the index of the task you wish to delete: ");
-            int index = s.nextInt();
+            int index = scan.nextInt();
+            scan.nextLine();
             if (index < 0 || index >= tl.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -241,12 +248,12 @@ public class TaskApp {
         }
     }
 
-    public static void updateTask(TaskList tl) throws IndexOutOfBoundsException, IllegalArgumentException, DateTimeException {
-        Scanner s = new Scanner(System.in);
-        tl.printTaskList();
+    private void updateTask(TaskList tl) throws IndexOutOfBoundsException, IllegalArgumentException, DateTimeException {
+        tl.printList();
         if (tl.size() != 0) {
             System.out.print("Please enter the index of the task you wish to edit: ");
-            int index = s.nextInt();
+            int index = scan.nextInt();
+            scan.nextLine();
             if (index < 0 || index >= tl.size()) {
                 throw new IndexOutOfBoundsException();
             }
@@ -279,15 +286,17 @@ public class TaskApp {
         }
         return true;
     }
-    public static String[] getUpdatedTaskInfoFromUser(int tasknumber){
-        Scanner s = new Scanner(System.in);
+    private String[] getUpdatedTaskInfoFromUser(int tasknumber){
         String[] ret = new String[3];
         System.out.print("Enter the new title for task " + tasknumber + ": ");
-        ret[0] = s.nextLine();
+        ret[0] = scan.nextLine();
+        scan.nextLine();
         System.out.print("Enter the new task description for task " + tasknumber + ": ");
-        ret[1] = s.nextLine();
+        ret[1] = scan.nextLine();
+        scan.nextLine();
         System.out.print("Enter a new task due date (YYYY-MM-DD) for task " + tasknumber +": ");
-        ret[2] = s.nextLine();
+        ret[2] = scan.nextLine();
+        scan.nextLine();
         return ret;
     }
 }

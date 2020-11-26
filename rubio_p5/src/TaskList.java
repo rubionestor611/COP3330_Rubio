@@ -1,24 +1,22 @@
 import java.io.*;
-import java.nio.file.FileSystems;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.util.*;
 
-public class TaskList {
-    private ArrayList<TaskItem> list = new ArrayList<>();
+public class TaskList extends TypeList{
 
     public TaskList() {
+        this.list = new ArrayList<TypeItem>();
     }
 
     public void addTask(TaskItem t) {
         this.list.add(t);
     }
 
-    public int size() {
+    /*public int size() {
         return this.list.size();
-    }
+    }*/
     public void completeTask(int index){
         getItem(index).complete();
     }
@@ -37,7 +35,7 @@ public class TaskList {
     public boolean isTaskComplete(int index){
         return getItem(index).isComplete();
     }
-    public void printTaskList() {
+    public void printList() {
         System.out.println("Current tasks\n" +
                 "_____________");
         System.out.println(this.toString());
@@ -94,15 +92,15 @@ public class TaskList {
     }
 
     public TaskItem getItem(int index) {
-        return this.list.get(index);
+        return (TaskItem) this.list.get(index);
     }
     public void updateTask(int index, String title, String desc, String duedate){
         getItem(index).updateTask(title,desc,duedate);
     }
 
-    public boolean isEmpty() {
+    /*public boolean isEmpty() {
         return this.list.isEmpty();
-    }
+    }*/
 
     public void removeTask(int index) {
         this.list.remove(index);
@@ -124,7 +122,7 @@ public class TaskList {
                 if(row[0].length() != 0 && isValidDate(row[2])){
                     this.list.add(new TaskItem(row[0], row[1], row[2]));
                     if(row.length == 4){
-                        this.list.get(this.list.size()-1).complete();
+                        this.getItem(this.list.size()-1).complete();
                     }
                 }
 
@@ -133,7 +131,7 @@ public class TaskList {
             throw fnf;
         }
     }
-    public void writeToFile(String filename) throws Exception{
+    /*public void writeToFile(String filename) throws Exception{
         File file = new File("src/" + filename);
         try{
             if(file.exists()){
@@ -151,8 +149,8 @@ public class TaskList {
         }catch(Exception e){
             throw e;
         }
-    }
-    private void writeText(PrintWriter pw) throws Exception{
+    }*/
+    protected void writeText(PrintWriter pw) throws Exception{
         try{
             int len = this.size();
             for(int i = 0; i < len; i++){
@@ -163,10 +161,7 @@ public class TaskList {
             throw new Exception("append failed");
         }
     }
-    public boolean savetoFile() throws Exception {
-        Scanner s = new Scanner(System.in);
-        System.out.print("Enter the filename to save as: ");
-        String filename = s.nextLine();
+    /*public boolean savetoFile(String filename) throws Exception {
         try{
             if(filename.length() >= 5 && filename.substring(filename.length() - 4).equals(".txt")){
                 this.writeToFile(filename);
@@ -178,7 +173,7 @@ public class TaskList {
         }catch(Exception e){
             return false;
         }
-    }
+    }*/
     private static boolean isValidDate(String Date) {
         //ideal date in "YYYY/MM/DD" format
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

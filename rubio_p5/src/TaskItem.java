@@ -3,7 +3,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 
-public class TaskItem {
+public class TaskItem extends TypeItem{
     private String title;
     private String description;
     private String dueDate;

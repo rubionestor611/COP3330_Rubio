@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-public class ContactItem {
+public class ContactItem extends TypeItem{
     private String firstname;
     private String lastname;
     private String phonenumber;

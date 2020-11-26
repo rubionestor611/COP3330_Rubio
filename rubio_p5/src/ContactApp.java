@@ -51,7 +51,7 @@ public class ContactApp {
         int choice = getListOperationChoice();
         while(choice != 6){
             if(choice == 1){
-                cl.printlist();
+                cl.printList();
             }else if(choice == 2){
                 addtoContactList(cl);
             }else if(choice == 3){
@@ -88,7 +88,7 @@ public class ContactApp {
         }
         int chosenindex = 0;
         scanner.nextLine();
-        cl.printlist();
+        cl.printList();
         System.out.print("Please enter the index of the contact you wish to delete: ");
         try{
             chosenindex = scanner.nextInt();
@@ -110,7 +110,7 @@ public class ContactApp {
         }
         int chosenindex = 0;
         scanner.nextLine();
-        cl.printlist();
+        cl.printList();
         System.out.print("Please enter the index of the contact you wish to update: ");
         try{
             chosenindex = scanner.nextInt();

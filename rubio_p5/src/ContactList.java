@@ -5,11 +5,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ContactList {
-    private ArrayList<ContactItem> list = new ArrayList<>();
+public class ContactList extends TypeList{
     public ContactList(){
+        this.list = new ArrayList<TypeItem>();
     }
-    public void printlist(){
+    public void printList(){
         System.out.println("Current Contacts\n" +
                            "_____________\n");
         int len = size();
@@ -20,14 +20,14 @@ public class ContactList {
         }
         System.out.print("\n");
     }
-    public int size(){
+   /* public int size(){
         return list.size();
     }
     public boolean isEmpty(){
         return this.list.isEmpty();
-    }
-    private ContactItem getContact(int index){
-        return this.list.get(index);
+    }*/
+    public ContactItem getContact(int index){
+        return (ContactItem)this.list.get(index);
     }
     public void addContact(ContactItem c){
         list.add(c);
@@ -93,7 +93,7 @@ public class ContactList {
             throw fnf;
         }
     }
-    public void writeToFile(String filename) throws Exception{
+   /* public void writeToFile(String filename) throws Exception{
         File file = new File("src/" + filename);
         try{
             if(file.exists()){
@@ -111,8 +111,8 @@ public class ContactList {
         }catch(Exception e){
             throw e;
         }
-    }
-    private void writeText(PrintWriter pw) throws Exception{
+    }*/
+    protected void writeText(PrintWriter pw) throws Exception{
         try{
             int len = this.size();
             for(int i = 0; i < len; i++){
@@ -123,7 +123,7 @@ public class ContactList {
             throw new Exception("append failed");
         }
     }
-    public boolean savetoFile(String filename) throws Exception {
+    /*public boolean savetoFile(String filename) throws Exception {
         try{
             if(filename.length() >= 5 && filename.substring(filename.length() - 4).equals(".txt")){
                 this.writeToFile(filename);
@@ -135,5 +135,5 @@ public class ContactList {
         }catch(Exception e){
             return false;
         }
-    }
+    }*/
 }
