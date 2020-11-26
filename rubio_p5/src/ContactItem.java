@@ -11,11 +11,22 @@ public class ContactItem extends TypeItem{
         if(firstname.length()+lastname.length()+phone.length()+email.length() == 0){
             throw new InstantiationError();
         }
-        this.firstname = firstname;
-        this.lastname = lastname;
+
+        if(!firstname.equals("null")){
+            this.firstname = firstname;
+        }else{
+            this.firstname = "";
+        }
+        if(!lastname.equals("null")){
+            this.lastname = lastname;
+        }else{
+            this.lastname = "";
+        }
+
+
         if(isValidEmail(email)){
             this.email = email;
-        }else if(email.length() != 0){
+        }else if(email.length() != 0 && !email.equals("null")){
             this.email = "";
             System.out.println("Email portion for "+ this.getFullName() + " will be left blank. Email not in correct format.");
         }else{
@@ -23,7 +34,7 @@ public class ContactItem extends TypeItem{
         }
         if(isValidPhoneNumber(phone)){
             this.phonenumber = phone;
-        }else if(phone.length() != 0){
+        }else if(phone.length() != 0 && !phone.equals("null")){
             this.phonenumber = "";
             System.out.println("Phone section for " + this.getFullName() + " will be left blank. Invalid phone format.");
         }else{
@@ -129,22 +140,22 @@ public class ContactItem extends TypeItem{
         if(this.firstname.length() != 0){
             ret += this.firstname + "::";
         }else{
-            ret += " ::";
+            ret += "null::";
         }
         if(this.lastname.length() != 0){
             ret += this.lastname + "::";
         }else{
-            ret += " ::";
+            ret += "null::";
         }
         if(this.phonenumber.length() != 0){
             ret += this.phonenumber + "::";
         }else{
-            ret += " ::";
+            ret += "null::";
         }
         if(this.email.length() != 0){
-            ret += this.firstname + "::";
+            ret += this.email + "::";
         }else{
-            ret += " ::";
+            ret += "null::";
         }
         return ret;
     }
