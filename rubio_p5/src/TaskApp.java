@@ -324,6 +324,7 @@ public class TaskApp {
             System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
         }
     }
+
     private void trytoMarkTaskasIncomplete(TaskList tl){
         try {
             unmarkAsComplete(tl);

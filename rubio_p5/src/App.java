@@ -30,6 +30,7 @@ public class App {
         }
         System.out.println("Thanks for using the app!");
     }
+
     private static void printMainMenu(){
         System.out.println("Select Your Application\n" +
                            "_______________________");
@@ -37,6 +38,7 @@ public class App {
                 "2) contact list\n" +
                 "3) quit");
     }
+
     private static int getUserChoice(int low, int high){
         printMainMenu();
         int ret = -1;

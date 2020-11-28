@@ -13,7 +13,7 @@ public class TaskList extends TypeList{
     public void addTask(TaskItem t) {
         this.list.add(t);
     }
-    
+
     public void completeTask(int index){
         getItem(index).complete();
     }
@@ -100,7 +100,7 @@ public class TaskList extends TypeList{
     }
 
     public void loadList(String filename) throws FileNotFoundException, Exception {
-        if(!filename.substring(filename.length() - 4).equals(".txt")){
+        if(filename.length() < 4 || !filename.substring(filename.length() - 4).equals(".txt")){
             filename +=".txt";
         }
         try {

@@ -5,6 +5,7 @@ import java.time.DateTimeException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskItemTest {
+
     @Test
     public void abstractionSucceeds(){
         TypeItem t = new TaskItem("Title","","2020-08-10");

@@ -20,6 +20,7 @@ public class TaskItem extends TypeItem{
         this.dueDate = dueDate;
         this.Complete = false;
     }
+
     public void updateTask(String title, String desc, String dueDate) {
         if(title.length() == 0){
             throw new IllegalArgumentException();
@@ -30,6 +31,7 @@ public class TaskItem extends TypeItem{
         this.setDescription(desc);
         this.setTitle(title);
     }
+
     public void setTitle(String title){
         this.title = title;
     }

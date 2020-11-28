@@ -33,7 +33,6 @@ class ContactItemTest {
     public void creationSucceedswithBlankLastandPhoneandEmail(){
         ContactItem c  = new ContactItem("First", "", "", "");
         assertEquals("First::null::null::null::", c.toWriteFormat());
-
     }
     @Test
     public void creationSucceedsWithBlankEmail(){

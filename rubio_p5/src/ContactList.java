@@ -8,6 +8,7 @@ public class ContactList extends TypeList{
     public ContactList(){
         this.list = new ArrayList<TypeItem>();
     }
+
     public void printList(){
         System.out.println("Current Contacts\n" +
                            "_____________\n");

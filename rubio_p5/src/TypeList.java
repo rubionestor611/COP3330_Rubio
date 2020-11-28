@@ -49,5 +49,4 @@ public abstract class TypeList {
         }
     }
     protected abstract void writeText(PrintWriter pw) throws Exception;
-
 }

@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ContactListTest {
+
     @Test
     public void abstractionSucceeds(){
         TypeList cl = new ContactList();

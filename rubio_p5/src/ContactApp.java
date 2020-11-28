@@ -6,9 +6,11 @@ public class ContactApp {
     public void run(){
         main(new String[1]);
     }
+
     public void main(String[] args){
         this.mainMenu();
     }
+
     public void mainMenu(){
         printMainMenu();
         ContactList cl;
