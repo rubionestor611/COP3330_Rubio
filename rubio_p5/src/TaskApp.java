@@ -30,16 +30,17 @@ public class TaskApp {
             }
             if (input == 2) {
                 //load existing tasklist
+                String filename = "";
                 try {
                     tl = new TaskList();
-                    String filename = getFileName();
+                    filename = getFileName();
                     tl.loadList(filename);
                     System.out.println("task list has been loaded");
                     listOperationMenu(tl);
                 } catch (FileNotFoundException e) {
-                    System.out.println("File does not exist. Tasklist could not be loaded\n");
+                    System.out.println(filename + " does not exist. Tasklist could not be loaded\n");
                 } catch (Exception e) {
-                    System.out.println("Problem loading list\n");
+                    System.out.println("Problem loading list from " + filename + ".\n");
                 }
 
             }
@@ -56,68 +57,19 @@ public class TaskApp {
                 tl.printList();
             }
             if (input == 2) {
-                try {
-                    if (addtoTaskList(tl)) {
-                        System.out.println("Task created and added to the list.");
-                    }
-                } catch (IllegalArgumentException i) {
-                    System.out.println("Title needs to be at least one character long.\nTask not created.");
-                } catch (DateTimeException d) {
-                    System.out.println("DueDate needs to be a real date in YYYY-MM-DD format.\nTask not created.");
-                }
+                trytoAddtoList(tl);
             }
             if (input == 3) {
-                try {
-                    updateTask(tl);
-                } catch (IndexOutOfBoundsException iob) {
-                    scan.nextLine();
-                    System.out.println("Not a valid index for a task on the list.");
-                } catch (IllegalArgumentException ill) {
-                    scan.nextLine();
-                    System.out.println("Title needs to be at least one character in length.\n" +
-                            "Task not updated.");
-                } catch (DateTimeException d) {
-                    scan.nextLine();
-                    System.out.println("Due date needs to be a real date in a valid YYYY-MM-DD format.\n" +
-                            "Task not updated.");
-                } catch (Exception e) {
-                    scan.nextLine();
-                    System.out.println("Need a valid integer as index of your list to edit a task.");
-                }
+                trytoUpdateTask(tl);
             }
             if (input == 4) {
-                try {
-                    removefromList(tl);
-                } catch (IndexOutOfBoundsException iob) {
-                    scan.nextLine();
-                    System.out.println("Not a valid index for a task on the list.");
-                }catch(Exception e){
-                    scan.nextLine();
-                    System.out.println("Only valid integers accepted.\n");
-                }
+                trytoRemovefromList(tl);
             }
             if (input == 5) {
-                try {
-                    markAsComplete(tl);
-                } catch (IndexOutOfBoundsException i) {
-                    scan.nextLine();
-                    System.out.println("Not a valid index for a task on the list.");
-                } catch (Exception e) {
-                    scan.nextLine();
-                    System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
-                }
+                trytoMarkTaskasComplete(tl);
             }
             if (input == 6) {
-                //unmark as completed
-                try {
-                    unmarkAsComplete(tl);
-                } catch (IndexOutOfBoundsException i) {
-                    scan.nextLine();
-                    System.out.println("Not a valid index for a task on the list.");
-                } catch (Exception e) {
-                    scan.nextLine();
-                    System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
-                }
+                trytoMarkTaskasIncomplete(tl);
             }
             if (input == 7) {
                 if (tl.savetoFile(getNameofFiletoSaveList())) {
@@ -242,7 +194,6 @@ public class TaskApp {
             tl.getItem(indexinlist).complete();
             System.out.println("\nTask marked as complete.\n");
         }
-
     }
 
     private void removefromList(TaskList tl) throws IndexOutOfBoundsException {
@@ -320,5 +271,68 @@ public class TaskApp {
         scan.reset();
 
         return ret;
+    }
+    private void trytoAddtoList(TaskList tl){
+        try {
+            if (addtoTaskList(tl)) {
+                System.out.println("Task created and added to the list.");
+            }
+        } catch (IllegalArgumentException i) {
+            System.out.println("Title needs to be at least one character long.\nTask not created.");
+        } catch (DateTimeException d) {
+            System.out.println("Due Date needs to be a real date in YYYY-MM-DD format.\nTask not created.");
+        }
+    }
+    private void trytoUpdateTask(TaskList tl){
+        try {
+            updateTask(tl);
+        } catch (IndexOutOfBoundsException iob) {
+            scan.nextLine();
+            System.out.println("Not a valid index for a task on the list.");
+        } catch (IllegalArgumentException ill) {
+            scan.nextLine();
+            System.out.println("Title needs to be at least one character in length.\n" +
+                    "Task not updated.");
+        } catch (DateTimeException d) {
+            scan.nextLine();
+            System.out.println("Due date needs to be a real date in a valid YYYY-MM-DD format.\n" +
+                    "Task not updated.");
+        } catch (Exception e) {
+            scan.nextLine();
+            System.out.println("Need a valid integer as index of your list to edit a task.");
+        }
+    }
+    private void trytoRemovefromList(TaskList tl){
+        try {
+            removefromList(tl);
+        } catch (IndexOutOfBoundsException iob) {
+            scan.nextLine();
+            System.out.println("Not a valid index for a task on the list.");
+        }catch(Exception e){
+            scan.nextLine();
+            System.out.println("Only valid integers accepted.\n");
+        }
+    }
+    private void trytoMarkTaskasComplete(TaskList tl){
+        try {
+            markAsComplete(tl);
+        } catch (IndexOutOfBoundsException i) {
+            scan.nextLine();
+            System.out.println("Not a valid index for a task on the list.");
+        } catch (Exception e) {
+            scan.nextLine();
+            System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
+        }
+    }
+    private void trytoMarkTaskasIncomplete(TaskList tl){
+        try {
+            unmarkAsComplete(tl);
+        } catch (IndexOutOfBoundsException i) {
+            scan.nextLine();
+            System.out.println("Not a valid index for a task on the list.");
+        } catch (Exception e) {
+            scan.nextLine();
+            System.out.println("Unable to find task with provided index. Please provide an integer corresponding to the correct index");
+        }
     }
 }

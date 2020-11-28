@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaskItemTest {
     @Test
+    public void abstractionSucceeds(){
+        TypeItem t = new TaskItem("Title","","2020-08-10");
+        assertEquals("Title::::2020-08-10",t.toWriteFormat());
+    }
+    @Test
     public void constructorFailsWithInvalidDueDate(){
         assertThrows(DateTimeException.class, () -> {
                 TaskItem t = new TaskItem("Title", "Desc", "2020-02-30");
@@ -69,5 +74,4 @@ class TaskItemTest {
         t.updateTask("Title2","","2020-08-10");
         assertEquals("Title2", t.getTitle());
     }
-
 }

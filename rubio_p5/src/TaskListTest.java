@@ -6,6 +6,11 @@ import java.time.DateTimeException;
 
 class TaskListTest {
     @Test
+    public void abstractionisSuccessful(){
+        TypeList tl = new TaskList();
+        assertEquals(true, tl.isEmpty());
+    }
+    @Test
     public void addingItemsIncreasesSize(){
         TaskList tl =new TaskList();
         assertEquals(0,tl.size());
@@ -195,5 +200,4 @@ class TaskListTest {
             tl.uncompleteTask(1);
         });
     }
-
 }

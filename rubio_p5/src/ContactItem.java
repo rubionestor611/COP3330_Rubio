@@ -23,7 +23,6 @@ public class ContactItem extends TypeItem{
             this.lastname = "";
         }
 
-
         if(isValidEmail(email)){
             this.email = email;
         }else if(email.length() != 0 && !email.equals("null")){

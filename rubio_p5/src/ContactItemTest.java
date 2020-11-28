@@ -25,6 +25,17 @@ class ContactItemTest {
         assertEquals("", c.getEmail());
     }
     @Test
+    public void creationSucceedswithBlankPhoneandEmail(){
+        ContactItem c  = new ContactItem("First", "Last", "", "");
+        assertEquals("First::Last::null::null::", c.toWriteFormat());
+    }
+    @Test
+    public void creationSucceedswithBlankLastandPhoneandEmail(){
+        ContactItem c  = new ContactItem("First", "", "", "");
+        assertEquals("First::null::null::null::", c.toWriteFormat());
+
+    }
+    @Test
     public void creationSucceedsWithBlankEmail(){
         assertDoesNotThrow(()->{
             ContactItem c = new ContactItem("Nestor","Rubio","012-345-6789","");

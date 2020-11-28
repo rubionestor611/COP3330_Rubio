@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.time.DateTimeException;
 import java.util.Scanner;
 
 public class ContactApp {
@@ -203,13 +202,7 @@ public class ContactApp {
             System.out.println("All values cannot be blank at least one contact field must have content.");
         }catch(Exception e){
             System.out.println("Returning to List Operations Menu.\n");
-        }/*catch(IllegalArgumentException i){
-
-        }catch(DateTimeException d){
-
-        }catch(InstantiationError i){
-
-        }*/
+        }
     }
     public String[] getContactInfoFromUser(){
         String[] ret = new String[4];

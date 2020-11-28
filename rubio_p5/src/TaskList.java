@@ -13,10 +13,7 @@ public class TaskList extends TypeList{
     public void addTask(TaskItem t) {
         this.list.add(t);
     }
-
-    /*public int size() {
-        return this.list.size();
-    }*/
+    
     public void completeTask(int index){
         getItem(index).complete();
     }
@@ -98,10 +95,6 @@ public class TaskList extends TypeList{
         getItem(index).updateTask(title,desc,duedate);
     }
 
-    /*public boolean isEmpty() {
-        return this.list.isEmpty();
-    }*/
-
     public void removeTask(int index) {
         this.list.remove(index);
     }
@@ -131,25 +124,7 @@ public class TaskList extends TypeList{
             throw fnf;
         }
     }
-    /*public void writeToFile(String filename) throws Exception{
-        File file = new File("src/" + filename);
-        try{
-            if(file.exists()){
-                file.delete();
-                file.createNewFile();
-                FileWriter fw = new FileWriter(file);
-                PrintWriter pw = new PrintWriter(fw);
-                writeText(pw);
-                fw.close();
-            }else{
-                if(file.createNewFile()){
-                    writeToFile(filename);
-                }
-            }
-        }catch(Exception e){
-            throw e;
-        }
-    }*/
+
     protected void writeText(PrintWriter pw) throws Exception{
         try{
             int len = this.size();
@@ -161,19 +136,7 @@ public class TaskList extends TypeList{
             throw new Exception("append failed");
         }
     }
-    /*public boolean savetoFile(String filename) throws Exception {
-        try{
-            if(filename.length() >= 5 && filename.substring(filename.length() - 4).equals(".txt")){
-                this.writeToFile(filename);
-                return true;
-            }else{
-                this.writeToFile(filename + ".txt");
-                return true;
-            }
-        }catch(Exception e){
-            return false;
-        }
-    }*/
+
     private static boolean isValidDate(String Date) {
         //ideal date in "YYYY/MM/DD" format
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

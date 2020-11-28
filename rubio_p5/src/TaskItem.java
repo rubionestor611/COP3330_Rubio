@@ -8,6 +8,7 @@ public class TaskItem extends TypeItem{
     private String description;
     private String dueDate;
     private boolean Complete;
+
     public TaskItem(String title, String desc, String dueDate) {
         if(title.length() == 0){
             throw new IllegalArgumentException();

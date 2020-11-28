@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ContactListTest {
     @Test
+    public void abstractionSucceeds(){
+        TypeList cl = new ContactList();
+        assertEquals(true, cl.isEmpty());
+    }
+    @Test
     public void addingItemsIncreasesSize(){
         ContactList c = new ContactList();
         assertEquals(0, c.size());
@@ -48,6 +53,20 @@ class ContactListTest {
         assertEquals("Last", c.getContactLastName(0));
     }
     @Test
+    public void editingSucceedsWithBlankPhoneandEmail(){
+        ContactList c = new ContactList();
+        c.addContact(new ContactItem("Nestor","Rubio","321-654-9870", "nessssss@smail.ney"));
+        c.updateContact(0,"NO", "Way", "", "");
+        assertEquals("NO::Way::321-654-9870::nessssss@smail.ney::",c.getContact(0).toWriteFormat());
+    }
+    @Test
+    public void editingSucceedsWithBlankFirstandLastNames(){
+        ContactList c = new ContactList();
+        c.addContact(new ContactItem("Nestor","Rubio","321-654-9870", "nessssss@smail.ney"));
+        c.updateContact(0,"", "", "000-000-0000", "new@email.net");
+        assertEquals("Nestor::Rubio::000-000-0000::new@email.net::",c.getContact(0).toWriteFormat());
+    }
+    @Test
     public void editingSucceedsWithNonBlankValues(){
         ContactList c = new ContactList();
         c.addContact(new ContactItem("Nestor","Rubio","321-654-9870", "nessssss@smail.ney"));
@@ -84,5 +103,4 @@ class ContactListTest {
             assertEquals(2,c.size());
         });
     }
-
 }

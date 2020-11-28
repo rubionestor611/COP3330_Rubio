@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,12 +19,7 @@ public class ContactList extends TypeList{
         }
         System.out.print("\n");
     }
-   /* public int size(){
-        return list.size();
-    }
-    public boolean isEmpty(){
-        return this.list.isEmpty();
-    }*/
+
     public ContactItem getContact(int index){
         return (ContactItem)this.list.get(index);
     }
@@ -93,25 +87,7 @@ public class ContactList extends TypeList{
             throw fnf;
         }
     }
-   /* public void writeToFile(String filename) throws Exception{
-        File file = new File("src/" + filename);
-        try{
-            if(file.exists()){
-                file.delete();
-                file.createNewFile();
-                FileWriter fw = new FileWriter(file);
-                PrintWriter pw = new PrintWriter(fw);
-                writeText(pw);
-                fw.close();
-            }else{
-                if(file.createNewFile()){
-                    writeToFile(filename);
-                }
-            }
-        }catch(Exception e){
-            throw e;
-        }
-    }*/
+
     protected void writeText(PrintWriter pw) throws Exception{
         try{
             int len = this.size();
@@ -123,17 +99,4 @@ public class ContactList extends TypeList{
             throw new Exception("append failed");
         }
     }
-    /*public boolean savetoFile(String filename) throws Exception {
-        try{
-            if(filename.length() >= 5 && filename.substring(filename.length() - 4).equals(".txt")){
-                this.writeToFile(filename);
-                return true;
-            }else{
-                this.writeToFile(filename + ".txt");
-                return true;
-            }
-        }catch(Exception e){
-            return false;
-        }
-    }*/
 }
