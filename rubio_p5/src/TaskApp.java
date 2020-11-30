@@ -290,11 +290,11 @@ public class TaskApp {
             scan.nextLine();
             System.out.println("Not a valid index for a task on the list.");
         } catch (IllegalArgumentException ill) {
-            scan.nextLine();
+            scan.reset();
             System.out.println("Title needs to be at least one character in length.\n" +
                     "Task not updated.");
         } catch (DateTimeException d) {
-            scan.nextLine();
+            scan.reset();
             System.out.println("Due date needs to be a real date in a valid YYYY-MM-DD format.\n" +
                     "Task not updated.");
         } catch (Exception e) {
