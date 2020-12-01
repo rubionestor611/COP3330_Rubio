@@ -139,6 +139,12 @@ public class TaskList extends TypeList{
 
     private static boolean isValidDate(String Date) {
         //ideal date in "YYYY/MM/DD" format
+        if(Date.length() != 10){
+            return false;
+        }
+        if(Date.charAt(4) != '-' ||Date.charAt(7) != '-'){
+            return false;
+        }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         df.setLenient(false);
         try {

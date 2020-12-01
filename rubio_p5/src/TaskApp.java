@@ -248,6 +248,13 @@ public class TaskApp {
 
     private static boolean isValidDate(String Date) {
         //ideal date in "YYYY/MM/DD" format
+        //               0123456789
+        if(Date.length() != 10){
+            return false;
+        }
+        if(Date.charAt(4) != '-' ||Date.charAt(7) != '-'){
+            return false;
+        }
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         df.setLenient(false);
         try {
